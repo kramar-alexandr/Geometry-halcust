@@ -1,0 +1,807 @@
+//##ii
+procedure dummy() //##ii
+begin //##ii
+ SetLangMode(LangUkrainian,"UKR",0); //##ii
+ return; //##ii
+end; //##ii
+
+
+window TSReportRClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+	real h,vs,v,vm; 
+WindowBegin("Табелі часу",TSReportRClass,CGRcW,RcType);
+  SetWRect(20,80,380,300);
+  v = 6; vs = 20; h = 120;
+  EditFieldTL(h+5,v, 150,"Співробітник",   M4UStr,Normal,60,f1,false,UserSClass);
+  PeriodField(h+5,v+=vs,"Період");
+  ButtonFrame(h=45,v+=40,200,4,"Відображати");
+  RadioButton(h,v,0,0,"затверджені табелі",flags[1]);
+  RadioButton(h,v+=16,1,0,"незатверджені табелі",flags[1]);
+  RadioButton(h,v+=16,2,0,"усі табелі",flags[1]);
+  ButtonFrame(h,vm=v+=40,120,2,"Функція");
+  RadioButton(h,v+=40,0,0,"зведений",ArtMode);
+  RadioButton(h,v+=16,1,0,"докладний",ArtMode);
+  CheckBox(h,v+=20,1,"експорт матриці в Excel",flags[2]);
+  EndWindow;
+end;    
+
+
+window UpdateTSVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin 
+	WindowBegin("UpdateTS",UpdateTSVClass,CGMnt,RcType);
+    SetWRect(20,80,380,180);
+    StaticText(30,75,"Натисніть запуск",false);
+	EndWindow;
+end;	
+
+
+window RingInProjVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin 
+	WindowBegin("Find Ring",RingInProjVClass,CGMnt,RcType);
+	SetWRect(20,80,380,180);
+	StaticText(30,75,"Для початку натисніть кнопку Запуск",false);
+	EndWindow;
+end;
+
+	
+window UpdateProjVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin 
+	WindowBegin("Update proj",UpdateProjVClass,CGMnt,RcType);
+	SetWRect(20,80,380,180);
+	StaticText(30,75,"Для початку натисніть кнопку Запуск",false);
+	EndWindow;
+end;	
+	
+window UnResORVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin 	
+	WindowBegin("Відкрити PU",UnResORVClass,CGMnt,RcType);
+   SetWRect(20,80,300,200);
+   EditFieldTL(90,20,100,"Рахунок",M4UStr,Normal,41,f1,false,ORSClass);
+	EndWindow;
+end;
+
+window UnResPOVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin 
+	WindowBegin("Відкрити SD",UnResPOVClass,CGMnt,RcType);
+   SetWRect(20,80,300,200);
+   EditFieldTL(90,20,100,"Замовлення",M4UStr,Normal,41,f1,false,POSClass);
+	EndWindow;
+end;	
+	
+	
+window UpdPRStagePRVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin 	
+	WindowBegin("поновити поле фаза проекту",UpdPRStagePRVClass,CGMnt,RcType);
+   SetWRect(20,80,300,200);
+	EndWindow;	
+	WindowBegin("поновити поле валюта проекту",UpdPRCurncyCodeVClass,CGMnt,RcType);
+   SetWRect(20,80,300,200);
+	EndWindow;
+end;	
+
+
+window UnResSHVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin 
+	WindowBegin("Відкрити SH",UnResSHVClass,CGMnt,RcType);
+   SetWRect(20,80,300,200);
+   EditFieldTL(90,20,100,"Замовлення",M4UStr,Normal,41,f1,false,POSClass);
+	EndWindow;
+end;	
+
+window UpdTSVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+	WindowBegin("Поновити TS",UpdTSVClass,CGMnt,RcType);
+   SetWRect(20,80,300,200);
+	EndWindow;
+end;	
+
+
+window UpdQTVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin 
+	WindowBegin("Поновити QT",UpdQTVClass,CGMnt,RcType);
+   SetWRect(20,80,300,200);
+	EndWindow;
+end;	
+
+
+window UpdActVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin 
+	WindowBegin("Поновити Act",UpdActVClass,CGMnt,RcType);
+   SetWRect(20,80,300,200);
+	EndWindow;
+end;	
+	
+	
+window sav_INSClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin 	
+	WindowBegin("Визначте товар",sav_INSClass,CGslist,-);
+  SetWRect(210,80,800,298);
+  Sizeable(-1,-1,0,0);
+  UseView(INVc);
+  SpawnClass(INDClass);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,4,"Код",Code,false,TSActCode);
+  RlColKey(120,120,"Наймен.",Name,false,TSActName);
+  RlColKey(-200,-200,"Альт.код",AlternativeCode,false,TSAlternativeCode);
+  RlCol(-80,-120,"Баз. ціна",UPrice1,true);
+  CalculatedColumn(-50,-50,"На складі","INSClassInStock",true);
+  SearchField("Пошук");
+  SpecialMenu("Довідка по товару",'I',0,"INStatusINSsm");
+  SpecialMenu("Пошук",'F',1,"INSearchSsm");
+  EndWindow;
+end; 
+
+
+window RecHistSerSerTClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+	real h,h1,h2,h3,h4,h5,v;
+  WindowBegin("Серії номерів - Історія змін регістрів",RecHistSerSerTClass,CGHbl,HBlRecType);
+  SetBlid(RecHistSerBlock);
+  
+  h = 8; v = 60;
+  h1=24; h2=h1+60; h3=h2+60; h4=h3+85; h5=h4+85;
+  if (GuiType==kGuiCocoa) then begin  
+    SetWRect(20,80,582,357);//ukr made wider - number series
+    Sizeable(-1,-1,0,0);
+    MatrixBegin(h,v,-31,-20,IVSerRowType,99);
+    MatCol(1,h1,"З номера",0,TSerStart,false,0);
+    MatCol(1,h2,"по номер",0,TSerEnd,false,0);
+    MatCol(1,h3,"З дати",0,StartDate,false,0);
+    MatCol(1,h4,"по дату",0,EndDate,false,0);
+    MatCol(1,h5,"Коментар",0,TSerCom,false,0);
+    MatCol(1,-120,"Журнал операцій",0,DonotGenTrans,false,SetSClass); //ukr made wider - number series
+  end else begin
+    SetWRect(20,80,532,357);
+    Sizeable(-1,-1,0,0);
+    StaticText(h+h1+5,v-23,"Серії номерів",false);
+    StaticText(h+h3+5,v-23,"Період",false);
+    MatrixBegin(h,v,-31,-20,IVSerRowType,99);
+    MatCol(1,h1,"З номера",0,TSerStart,false,0);
+    MatCol(1,h2,"по номер",0,TSerEnd,false,0);
+    MatCol(1,h3,"З дати",0,StartDate,false,0);
+    MatCol(1,h4,"по дату",0,EndDate,false,0);
+    MatCol(1,h5,"Коментар",0,TSerCom,false,0);
+    MatCol(1,-70,"Журнал операцій",0,DonotGenTrans,false,SetSClass);
+  end;
+/*The name DonotGenTrans is beacause of default value whcich is zero*/
+  EndMatrix;
+  //SpecialMenu("Magic Serial Help",' ',1,"MagicSerialHelp");
+  EndWindow;
+  return;
+end; 
+
+
+window RecordHistoryLClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  WindowBegin("Історія змін регистрів",RecordHistoryLClass,CGmlist,-);
+  SpawnClass(RecordHistoryDClass);
+  SetWRect(64,80,900,298);
+  Sizeable(-1,-1,0,0);
+  UseView(RecordHistoryVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,4,"Номер",SerNr,false,SerNr);
+  EndWindow;
+end;   
+
+
+window RecordHistoryDClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+real h,h1,h2,h3,h4,vs,v;  
+  WindowBegin("Історія змін регистрів",RecordHistoryDClass,CGview,-);
+  SetWRect(20,80,640,360);
+  Sizeable(-1,-1,0,0);
+  UseView(RecordHistoryVc);
+  vs = 20; h=100; h1=280; h2=380;  
+  EditField(h,v=10, 80,"Номер",Normal,SerNr,false,TSerSClass);
+  EditField(h,v+=vs,80,"№ в регістрі",Normal,TransNr,false,0);
+  EditField(h,v+=vs,80,"Регістр",Normal,FileName,false,0);
+  EditField(h,v+=vs,80,"Співробітник",Normal,UserCode,false,0);
+  EditField(h,v+=vs,80,"Дата",Normal,TransDate,false,0);
+  EditField(h,v+=vs,80,"Час",Normal,TransTime,false,0);
+  EditField(h,v+=vs,80,"Поле",Normal,FieldName,false,0);
+  EditField(h,v+=vs,-40,"Старе значення",Normal,OldCaption,false,0);
+  EditField(h,v+=vs,-40,"Нове значення",Normal,NewCaption,false,0);
+  EndWindow;
+end;  
+
+
+window RecHistCustRClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+real h,h1,h2,h3,h4,vs,v;
+	WindowBegin("Історія змін регістру Контакти",RecHistCustRClass,CGRcW,RcType);
+	SetWRect(20,80,380,300);
+	v = 6; vs = 20; h = 120;
+	PeriodField(h,v+=vs,"Період");
+	EditFieldTL(h,v+=vs, 150,"Співробітник",   M4UStr,Normal,60,f3,false,UserSClass);  
+	EditFieldTL(h,v+=vs, 150,"Поле",   M4UStr,Normal,60,f4,false,0);  
+  EndWindow;
+end;  	
+
+
+window ChangedTSRClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+real h,vs,v;
+	WindowBegin("Відредаговані табелі часу",ChangedTSRClass,CGRcW,RcType);
+	SetWRect(20,80,380,300);
+	v = 6; vs = 20; h = 120;
+	PeriodField(h+5,v+=vs,"Період");
+	EndWindow;
+end;	   
+
+
+window ClientBankEClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+real h,vs,v,h2;	
+  WindowBegin("Визначте параметри експорту до кліент-банку",ClientBankEClass,CGEcW,RcType);
+  SetWRect(20,80,250,227);
+  vs = 20; h=120; h2 = 280;
+  EditField(h,v=26,100,"Початковий номер",Normal,long1,false,0);  
+  EndWindow;
+end;
+
+window ClientBankIPEClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+real h,h2,vs,v;
+  WindowBegin("Визначте параметри експорту до кліент-банку",ClientBankIPEClass,CGEcW,RcType);
+  SetWRect(20,80,250,227);
+  vs = 20; h=120; h2 = 280;
+  EditField(h,v=26,100,"Початковий номер",Normal,long1,false,0);  
+  EndWindow;
+end;  
+
+
+window KBSettTClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+real h,vs,v;  
+  WindowBegin("Настройки експорту до кліент-банку",KBSettTClass,CGSbl,-);
+  SetWRect(64,80,470,290);
+  SetBlid(KBSettBlock);
+  v = 0; vs = 25; h = 75; 
+  EditField(h=140,v+=30,-40,"Початковий номер",Normal,StartNum,false,0);
+  EditField(h,v+=20,-40,"Номер",Normal,FileName,false,0);
+  EditField(h,v+=20,-40,"Дата",Normal,FileDate,false,0);
+  EditField(h,v+=20,-40,"Папка",Normal,Path,false,0);
+  EndWindow;
+end;  
+
+
+window SpecYesNoCancelWClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+real h,vs,v;
+  WindowBegin("Будь ласка підтвердьте",SpecYesNoCancelWClass,CGother,RcType);
+  Modality(1);
+  UseView(RcVc);
+  SetWRect(80,200,400,300);
+  Sizeable(-1,-1,0,0);
+  h = 150; v= 50;
+  EditField(h,v=26,100,"Початковий номер",Normal,long1,false,0); 
+  HalPushButton(h,v+=40,h+80,v+20,"KBExportSm","Так");
+  EndWindow;
+end;
+
+
+window ContractsLClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  WindowBegin("Контракти",ContractsLClass,CGmlist,-); // SAV Gray-5 2011_01_03
+  SpawnClass(ContractsDClass);
+  SetWRect(64,80,550,298);
+  Sizeable(-1,-1,0,0);
+  UseView(ContractsVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(8,8,"Клієнт",CustCode,false,CustCode);
+  RlColKey(104,104,"Дата",TransDate,false,TransDate);
+  RlColKey(204,204,"Номер",Code,false,Code);
+  RlColKey(280,280,"Назва",SearchKey,false,SearchKey);
+  RlColKey(400,400,"OK",OKFlag,false,OKFlag);
+  RlColKey(440,440,"Закрито",Closed,false,Closed);
+  SearchField("Найти");
+  EndWindow;
+end;
+
+  
+
+window ContractsDClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+real  h,h2,vs,v;
+  WindowBegin("Контракти",ContractsDClass,CGview,-); // SAV Gray-5 2011_01_03
+  SetWRect(64,80,640,450);
+ // Sizeable(-1,-1,0,0);
+  UseView(ContractsVc);
+  FormName(ContractsForm);
+  vs = 20; h = 150; h2 = 400;v = 10;
+  Tile(0,120,false,"",Code);
+  EditField(h,v+=vs,100,"Клієнт",Normal,CustCode,false,CUSClass);
+  EditField(h,v+=vs,-50,"Назва",Normal,SearchKey,false,0);
+  EditField(h,v+=vs,-50,"Вид контракту",Normal,Type,false,0);
+  EditField(h2,v+=vs,-50,"Дата контракту",Normal,TransDate,false,PasteCurDate);
+  EditField(h,v,100,"Дата завершення",Normal,ActDate,false,PasteCurDate);
+  EditField(h2,v+=vs,-50,"Номер контракту",Normal,Code,false,0);
+  EditField(h,v,100,"Форма розрахунків",Normal,PayDeal,false,0);
+  CheckBox(h,v+40,0,"OK",OKFlag);
+  CheckBox(h2,v+40,0,"Закрито",Closed);
+  SpecialMenu("",' ',1,""); 
+  EndWindow; 
+end;   
+
+
+window ContractsFormRClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+  WindowBegin("Контракт",ContractsFormRClass,CGRcW,RcType); // SAV Gray-5 2011_01_03
+   SetWRect(20,80,400,298);
+   EditField(100,16, 150,"Номер",Normal,f1,false,0);     
+  EndWindow; 
+end;
+
+window ContractsSClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin 
+  WindowBegin("Контракти",ContractsSClass,CGother,RcType);
+  SetWRect(240,80,470,298);
+  StringList(9,9,200,209);
+  EndWindow; 
+end;  
+
+
+
+window VATIVSClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+real  h,h2,vs,v;
+  WindowBegin("Податкові накладні виписані",VATIVSClass,CGslist,-);
+  SpawnClass(VATIVDClass);
+  SetWRect(10,80,640,298);
+  Sizeable(-1,-1,0,0);
+  UseView(VATIVVc);
+  RecordList(4,17,-21,-39);
+  vs=100;
+  RlColKey(4,4,"Номер",SerNr,false,SerNr);
+  RlColKey(70,70,"ПН",VEPN,false,VEPN);
+  RlColKey(70+vs,70+vs,"OK",OKFlag,false,OKFlag);
+  RlColKey(100+vs,100+vs,"Клієнт",CustCode,false,CustCode);
+  RlColKey(180+vs,180+vs,"Дата опер.",TransDate,false,TransDate);
+  RlColKey(250+vs,250+vs,"Акт/накл.",IVNr,false,IVNr);
+  RlColKey(370+vs,370+vs,"Найменування",Addr0,false,Name);
+  RlCol(-1,-1,"",Invalid,true);
+  SearchField("Пошук");
+  EndWindow;  
+end;  
+  
+window VATIVLClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+real  h,h2,vs,v;  
+  WindowBegin("Податкові накладні виписані",VATIVLClass,CGmlist,-);
+  SpawnClass(VATIVDClass);
+  SetWRect(10,80,640,298);
+  Sizeable(-1,-1,0,0);
+  UseView(VATIVVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,4,"Номер",SerNr,false,SerNr);
+  vs=0;
+  RlColKey(70,70,"ПН",VEPN,false,VEPN);
+  vs=100;
+  RlColKey(70+vs,70+vs,"OK",OKFlag,false,OKFlag);
+  RlColKey(100+vs,100+vs,"Клієнт",CustCode,false,CustCode);
+  RlColKey(180+vs,180+vs,"Дата опер.",TransDate,false,TransDate);
+  RlColKey(250+vs,250+vs,"Акт/накл.",IVNr,false,IVNr);
+  RlColKey(370+vs,370+vs,"Найменування",Addr0,false,Name);
+  RlCol(-1,-1,"",Invalid,true);
+  SearchField("Пошук");
+  EndWindow;
+end;
+
+
+window OperTypeSClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+  WindowBegin("Тип господарської операції",OperTypeSClass,CGslist,-);
+  SpawnClass(OperTypeDClass);
+  SetWRect(10,80,640,298);
+  Sizeable(-1,-1,0,0);
+  UseView(OperTypeVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(5,5,"Тип",Type,false,Type);
+  RlCol(100,100, "Назва",Name,false);
+  SearchField("Пошук");
+  EndWindow;  
+end;  
+  
+  
+window OperTypeLClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin    
+  WindowBegin("Тип господарської операції",OperTypeLClass,CGmlist,-);
+  SpawnClass(OperTypeDClass);
+  SetWRect(10,80,640,298);
+  Sizeable(-1,-1,0,0);
+  UseView(OperTypeVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(5,5,"Тип",Type,false,Type);
+  RlCol(100,100, "Назва",Name,false);
+  SearchField("Пошук");
+  EndWindow;
+end;
+
+  
+window OperTypeDClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+real  h,h1,h2,vs,v;
+  WindowBegin("Тип господарської операції",OperTypeDClass,CGview,-);
+  SetWRect(20,80,540,260);
+  //Sizeable(-1,-1,0,0);
+  //FormName(AT2WrofForm);
+  UseView(OperTypeVc);
+  vs = 20; h=100; h1=280; h2=380;  
+  EditField(h,v=10, 100, "Тип",Normal,Type,false,0);
+  EditField(h,v+=vs,200, "Назва",Normal,Name,false,0);
+  EditField(h,v+=vs,100, "Умовный ІПН",Normal,IPN,false,0);
+  EditField(h,v+=vs,200, "Умовна назва",Normal,Comment,false,0);
+  ButtonFrame(h=350,v=20,100,2,"Правило для записів");
+  RadioButton(h,v,0,0,            "Звичайне",Rule);
+  RadioButton(h,v+=16,1,0,        "ПДВ з прибутку",Rule);  
+  SpecialMenu("",0,0,"");    
+  EndWindow;
+end;  
+
+
+
+window ExportVATIVXMLTClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+real  h,h1,h2,vs,v;
+  WindowBegin("Експорт виписаних ПН",ExportVATIVXMLTClass,CGSbl,ExportVATIVXMLType); // SAV NS-36 настройки экспорта в веб
+  SetWRect(20,80,550,310);
+  vs = 20;h=80; h1=300;v=0;
+  SetBlid(ExportVATIVXMLBlock);
+  EditField(h,v+=20,100,"Період з",Normal,Sdate,false,PasteCurDate);
+  EditField(h,v+=20,100,"по",Normal,Edate,false,PasteCurDate);
+  EditField(h,v+=20,100,"Номер",Normal,SerNr,false,VATIVSClass);
+  HalPushButton(h,v+=30,h+60,v+50,"ExportVATIVXMLSm","Експорт");
+  EndWindow;
+end;   
+
+
+window ConfSClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+real  h,h1,h2,vs,v,l;
+  WindowBegin("Визначте поштову скриньку/конференцію",ConfSClass,CGslist,ConfView);
+  SetWRect(64,80,650,298);
+//  SpawnClass(ConfDClass);
+  Sizeable(-1,-1,0,0);
+  //MailBackground;
+  //UseView(ConfVc);
+    UseView(CUVc);
+  SpawnClass(CUDClass);
+  v = 5;  vs = 20; l = 80;
+  
+  h = 20; HalPushButton(h,v,h+l,v+vs,"SwitchToConfS","Пошт.скриньки");
+  h = h+l+12;  HalPushButton(h,v,h+l,v+vs,"SwitchToMailCUS","Клієнти");
+  h=h+l+12;  HalPushButton(h,v,h+l,v+vs,"SwitchToMailVES","Постачальники");
+  h=h+l+12;  HalPushButton(h,v,h+l,v+vs,"SwitchToMailContactS","Контакти");
+  RecordList(4,17+28,-21,-39);
+//
+  //RlColKey(6,6,"Найменування",AddrName,false,ActAddrName);
+  RlColKey(4,4,"N_o.",Code,false,EmplCode);
+  RlColKey(96,96,"Стисло",SearchKey,false,EmplSearchKey);
+  RlColKey(176,176,"Назва",Name,false,EmplName);
+  SearchField("Пошук");
+  SpecMenuItem("Презентація",' ',0);
+  EndWindow;
+end;  
+ 
+ 
+window OldConfSClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+real  h,h1,h2,vs,v,l;  
+    WindowBegin("Визначте пошт.скриньку/конференцію",OldConfSClass,CGslist,ConfView);
+  SetWRect(64,80,600,298);
+//  SpawnClass(ConfDClass);
+  Sizeable(-1,-1,0,0);
+  MailBackground;
+  UseView(ConfVc);
+  v = 5;  vs = 20; l = 80;
+  h = 20; HalPushButton(h,v,h+l,v+vs,"SwitchToConfS","Поштові скриньки");
+  h=h+l+12;  HalPushButton(h,v,h+l,v+vs,"SwitchToMailCUS","Клієнти");
+  h=h+l+12;  HalPushButton(h,v,h+l,v+vs,"SwitchToMailVES","Постачальники");
+  h=h+l+12;  HalPushButton(h,v,h+l,v+vs,"SwitchToMailContactS","Контакти");
+  RecordList(4,17+28,-21,-39);
+//  RecordList(4,17,-21,-39);
+  RlColKey(6,6,"Ім'я",AddrName,false,ActAddrName);
+  SearchField("Пошук");
+  SpecMenuItem("Презентація",' ',0);
+  EndWindow;
+end;  
+  
+  
+  // Edit Start ---------------------------------------------- Edit Start
+	//Monday, 8 October 2012 12:11:58
+	
+
+  
+    
+    
+    
+window RHistLClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  real h,l,v,vs;    
+  WindowBegin("RHist",RHistLClass,CGmlist,-);
+  SetWRect(64,80,650,298);
+  Sizeable(-1,-1,0,0);
+  //SpawnClass(RHistDClass);
+  UseView(RHistVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,2,"Номер",SerNr,false,MainKey);
+  RLCol(66,66,"TransDate",TransDate,false); // 62
+  RlCol(141,141,"TransTime",TransTime,false);// 62
+  RlCol(201,201,"accode",accode,false);// 62
+  RlCol(271,271,"User",User,false);// 62
+  RlColKey(-200,-200,"RecidStr",RecidStr,false,RecidStr);
+  SearchField("Пошук");
+  SpecialMenu("Open SubRegister",'R',1,"RHistOpenDsm");
+  EndWindow;
+end; 
+
+
+
+
+window VICredRowsDClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  WindowBegin("Податковий кредит",VICredRowsDClass,CGview,-);
+  SetWRect(60,80,500,200);
+  //Sizeable(-1,-1,0,0);
+  UseView(VICredRowsVc);
+  EditField(50,30,50,"Код",Normal,Code,false,0);
+  EditField(150,30,-50,"Назва",Normal,Name,false,0);
+  SearchField("Пошук");
+  EndWindow;
+end;  
+
+
+window VICredRowsLClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+  WindowBegin("Податковий кредит",VICredRowsLClass,CGmlist,-);
+  SetWRect(64,80,650,298);
+  Sizeable(-1,-1,0,0);
+  SpawnClass(VICredRowsDClass);
+  UseView(VICredRowsVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,2,"Код",Code,false,Code);
+  RlColKey(50,2,"Назва",Name,false,Name);
+  SearchField("Пошук");
+  EndWindow;
+end;  
+  
+window VICredRowsSClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin   
+  WindowBegin("Податковий кредит",VICredRowsSClass,CGslist,-);
+  SetWRect(64,80,650,298);
+  Sizeable(-1,-1,0,0);
+  SpawnClass(VICredRowsDClass);
+  UseView(VICredRowsVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,2,"Код",Code,false,Code);
+  RlColKey(50,2,"Назва",Name,false,Name);
+  SearchField("Пошук");
+  EndWindow;
+end;  
+  
+window IVDebRowsDClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+  WindowBegin("Податкове забов'язання",IVDebRowsDClass,CGview,-);
+  SetWRect(60,80,500,200);
+  //Sizeable(-1,-1,0,0);
+  UseView(IVDebRowsVc);
+  EditField(50,30,50,"Код",Normal,Code,false,0);
+  EditField(150,30,-50,"Назва",Normal,Name,false,0);
+  SearchField("Пошук");
+  EndWindow;
+end;
+
+
+  
+window IVDebRowsLClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin   
+  WindowBegin("Податкові забов'язання",IVDebRowsLClass,CGmlist,-);
+  SetWRect(64,80,650,298);
+  Sizeable(-1,-1,0,0);
+  SpawnClass(IVDebRowsDClass);
+  UseView(IVDebRowsVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,2,"Код",Code,false,Code);
+  RlColKey(50,2,"Назва",Name,false,Name);
+  SearchField("Пошук");
+  EndWindow;
+end;  
+
+
+window IVDebRowsSClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin   
+  WindowBegin("Податкові забов'язання",IVDebRowsSClass,CGslist,-);
+  SetWRect(64,80,650,298);
+  Sizeable(-1,-1,0,0);
+  SpawnClass(IVDebRowsDClass);
+  UseView(IVDebRowsVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,2,"Код",Code,false,Code);
+  RlColKey(50,2,"Назва",Name,false,Name);
+  SearchField("Пошук");
+  EndWindow;
+end;   
+  
+  
+window krProjectInfoRClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+real  h,vs,v;  
+  WindowBegin("Визначте відомості по проектам",krProjectInfoRClass,CGRcW,RcType);
+		SetWRect(20,80,400,200);
+		v = 6; vs = 20; h = 120;
+		PeriodField(h,v+=vs,"Період");
+		EditFieldTL(h,v+=vs, 150,"Проект",M4UStr,Normal,30,f1,false,PRSClass);
+		EditFieldTL(h,v+=vs, 150,"Співробітник",M4UStr,Normal,30,f2,false,UserSClass);
+		EditFieldTL(h,v+=vs, 150,"Клієнт",M4UStr,Normal,30,f3,false,CUSClass);
+	EndWindow;
+end;	
+
+
+window PRVcClearVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin   
+  WindowBegin("Clear PRVc",PRVcClearVClass,CGMnt,RcType);
+  SetWRect(20,80,450,208);
+  EndWindow;
+end;  
+
+
+window ClearAccPOVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin   
+  WindowBegin("Обнулити статус підтвердження замовлення постачальнику",ClearAccPOVClass,CGMnt,RcType);
+  SetWRect(20,80,450,208);			
+		EditField(150,50,100,"Номер замовлення",Normal,long1,false,0);			
+  EndWindow;
+end;  
+  
+window ClearAccQTVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin   
+  WindowBegin("Обнулити статус підтвердження комерційної пропозиції",ClearAccQTVClass,CGMnt,RcType);
+  SetWRect(20,80,450,208);		
+			EditField(150,50,100,"Номер пропозиції",Normal,long1,false,0);			
+  EndWindow;
+end;  
+
+
+window NormalizeQTAuthorityVClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin   
+  WindowBegin("Нормалізувати підписи в комерційних пропозиціях",NormalizeQTAuthorityVClass,CGMnt,RcType);
+  SetWRect(20,80,450,208);
+  EndWindow;
+end;  
+	// Edit End ---------------------------------------------- Edit End
+
+
+window VICredRowsDClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin	
+	WindowBegin("Податковий кредит",VICredRowsDClass,CGview,-);
+  SetWRect(1,1,600,100);
+  //Sizeable(-1,-1,0,0);
+  UseView(VICredRowsVc);
+  EditField(50,30,50,"Код",Normal,Code,false,0);
+  EditField(150,30,-50,"Назва",Normal,Name,false,0);
+  SearchField("Пошук");
+  EndWindow;
+end;
+  
+
+window VICredRowsLClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+  WindowBegin("Податковий кредит",VICredRowsLClass,CGmlist,-);
+  SetWRect(64,80,650,298);
+  Sizeable(-1,-1,0,0);
+  SpawnClass(VICredRowsDClass);
+  UseView(VICredRowsVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,2,"Код",Code,false,Code);
+  RlColKey(50,2,"Назва",Name,false,Name);
+  SearchField("Пошук");
+  EndWindow;
+end;  
+  
+  
+window VICredRowsSClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+  WindowBegin("Податковий кредит",VICredRowsSClass,CGslist,-);
+  SetWRect(64,80,650,298);
+  Sizeable(-1,-1,0,0);
+  SpawnClass(VICredRowsDClass);
+  UseView(VICredRowsVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,2,"Код",Code,false,Code);
+  RlColKey(50,2,"Назва",Name,false,Name);
+  SearchField("Пошук");
+  EndWindow;
+end;  
+  
+window IVDebRowsDClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+  WindowBegin("Податкове забов'язання",IVDebRowsDClass,CGview,-);
+  SetWRect(1,1,600,100);
+  //Sizeable(-1,-1,0,0);
+  UseView(IVDebRowsVc);
+  EditField(50,30,50,"Код",Normal,Code,false,0);
+  EditField(150,30,-50,"Назва",Normal,Name,false,0);
+  SearchField("Пошук");
+  EndWindow;
+end;  
+  
+window IVDebRowsLClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+  WindowBegin("Податкові забов'язання",IVDebRowsLClass,CGmlist,-);
+  SetWRect(64,80,650,298);
+  Sizeable(-1,-1,0,0);
+  SpawnClass(IVDebRowsDClass);
+  UseView(IVDebRowsVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,2,"Код",Code,false,Code);
+  RlColKey(50,2,"Назва",Name,false,Name);
+  SearchField("Пошук");
+  EndWindow;
+end;  
+ 
+
+window IVDebRowsSClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin  
+  WindowBegin("Податкові забов'язання",IVDebRowsSClass,CGslist,-);
+  SetWRect(64,80,650,298);
+  Sizeable(-1,-1,0,0);
+  SpawnClass(IVDebRowsDClass);
+  UseView(IVDebRowsVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,2,"Код",Code,false,Code);
+  RlColKey(50,2,"Назва",Name,false,Name);
+  SearchField("Пошук");
+  EndWindow;
+end;  
+	
