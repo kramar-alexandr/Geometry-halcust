@@ -7517,3 +7517,51 @@ begin
 end;
 
 
+
+
+window FEIVLClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  WindowBegin("Податкові накладні (звич.)",FEIVLClass,CGmlist,-);
+  SpawnClass(FEIVDClass);
+  SetWRect(10,80,640,298);
+  Sizeable(-1,-1,0,0);
+  UseView(FEIVVc);
+  FormName(PrintFEIVL);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,4,"Номер",SerNr,false,SerNr);
+  RlColKey(64,64,"OK",OKFlag,false,OKFlag);
+  RlColKey(94,94,"Дата",TransDate,false,TransDate);
+  RlColKey(174,174,"Клієнт",CustCode,false,CustCode);
+  RlColKey(234,234,"№ передпл.",PrepaymentNr,false,PrepaymentNr);
+  RlColKey(294,294,"Акт/накл.",IVNr,false,IVNr);
+  RlColKey(-266,-266,"Найменування",Addr0,false,Name);
+  RlCol(-80,-80,"Сума",Sum4,true);		//Edit----------------------Dima  11.12.2015
+  RlCol(-15,-15,"",CredMark,true);
+  SearchField("Пошук");
+  EndWindow;
+end;
+
+
+
+window FEVILClass:1
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  WindowBegin("Податкові накладні постачальників",FEVILClass,CGmlist,-);
+  SpawnClass(FEVIDClass);
+  SetWRect(10,80,640,298);
+  Sizeable(-1,-1,0,0);
+  UseView(FEVIVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,4,"Номер",SerNr,false,SerNr);
+  RlColKey(64,64,"OK",OKFlag,false,OKFlag);
+  RlColKey(94,94,"Дата опер-ї",TransDate,false,TransDate);
+  RlColKey(174,174,"Постач-к",VECode,false,VECode);  
+  RlColKey(234,234,"№ передпл.",PrepaymentNr,false,PrepaymentNr);
+  RlColKey(294,294,"№ накл.",VINr,false,VINr);
+  RlColKey(-266,-266,"Найменування",VEName,false,VEName);
+  RlCol(-80,-80,"Сума",PayVal,true);		//Edit----------------------Dima  11.12.2015
+  RlCol(-15,-15,"",CredMark,true);
+  SearchField("Пошук");
+  EndWindow;
+end;
