@@ -60,10 +60,17 @@ external function Boolean DefCustCodeSetup();
 external function Boolean HasInAppsAvailable();
 external function Integer CountCountries();
 
-// Language functions ENG
-external function Boolean DisplayLoginKeyPad_ENG();
+external procedure DisplayRecordDetails_UKR(LongInt,LongInt,string,date,time,string,string,string,string,string,string,string,string,string,string,string,Integer,string,string,string,val,string,Boolean,string,string);
+
 external function string 255 VATZoneEditFieldLabelUKR(Integer);
 external function real VATZoneButtonsLabelsUKR(real,real,real,real);
+
+external procedure DisplayRecordDetailsRA_UKR(LongInt,LongInt,string,date,time,string,string,string,string,string,string,Integer,string,LongInt,Date,string,LongInt,string);
+
+
+// Language functions ENG
+/*external function Boolean DisplayLoginKeyPad_ENG();
+
 external procedure LoginButtons2_ENG(Real,Real);
 external procedure FORMDEF_ENG();
 external function string 255 DemoMsgWClassTitle_ENG(Boolean,Boolean);
@@ -74,7 +81,6 @@ external procedure TSERWNT_ENG();
 external procedure TSERWTouch_ENG();
 external procedure TSERWTEST_ENG();
 external procedure INVFORM_ENG(Boolean);
-external procedure DisplayRecordDetails_ukr(LongInt,LongInt,string,date,time,string,string,string,string,string,string,string,string,string,string,string,Integer,string,string,string,val,string,Boolean,string,string);
 external procedure DrawPOSInterface_ENG(string,string,record POSButtonsVc,Integer,string,Integer);
 external procedure DisplayRecordDetailsCustDisplay_ENG(LongInt,LongInt,string,date,time,string,string,string,string,string,string,Integer,string,string,string,val);
 external function string 255 ResDayWClassWindowTitle_ENG();
@@ -91,7 +97,6 @@ external procedure CreditCardWindowDeliveryDetail_ENG(Real);
 external function real DrawPaymentModesButtons_ENG();
 external procedure DrawBarMenuTiles_ENG(string);
 external procedure DrawRestPMOtherPay_ENG();
-external procedure DisplayRecordDetailsRA_ukr(LongInt,LongInt,string,date,time,string,string,string,string,string,string,Integer,string,LongInt,Date,string,LongInt,string);
 external procedure DrawModifierButtons2_ENG(var integer,var integer);
 external procedure OKCancel_ENG();
 external procedure DefineElearningURLCacheLClass_ENG();
@@ -1650,7 +1655,7 @@ external procedure FORMDEF2_TUR();
 external procedure FORMDEF3_TUR();
 external procedure ARS2RClass_TUR();
 external procedure ALLVATRClass_TUR();
-
+*/
 // Language functions UKR
 external function Boolean DisplayLoginKeyPad_UKR();
 external function string 255 VATZoneEditFieldLabelUKR(Integer);
@@ -1693,7 +1698,7 @@ external procedure FORMDEF2_UKR();
 external procedure FORMDEF3_UKR();
 external procedure ARS2RClass_UKR();
 external procedure ALLVATRClass_UKR();
-
+/*
 // Language functions USA
 external function Boolean DisplayLoginKeyPad_USA();
 external function string 255 VATZoneEditFieldLabelUSA(Integer);
@@ -1822,7 +1827,7 @@ external procedure FORMDEF2_VIE();
 external procedure FORMDEF3_VIE();
 external procedure ARS2RClass_VIE();
 external procedure ALLVATRClass_VIE();
-
+*/
 external function Boolean IsStandardUnused();
 external function Boolean IsEnterprise();
 external function Boolean StandardHansa();

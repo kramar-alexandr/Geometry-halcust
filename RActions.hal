@@ -17,7 +17,7 @@ external inner procedure POSumup(var record POVc);// Edit **********************
 external function Boolean PODchrsum(record POVc,Integer);
 external updating procedure FindPOAmount(var row POVc, string);
 external function boolean CheckPOItem(row POVc, string);
-external updating procedure RecDel(record POItemVc);
+//external updating procedure RecDel(record POItemVc);
 external updating function boolean POItemCreate(record POVc ,row POVc , integer );
 external updating function boolean POItemDelete(longint );
 external function Boolean CheckSign(string);
@@ -913,7 +913,7 @@ BEGIN
   LongInt res;
   Time blankt;
 
-  res =  inner.CUVcRecordImportAfter(CUr,CU2r,stat,long4);
+  //res =  inner.CUVcRecordImportAfter(CUr,CU2r,stat,long4);///Нет в исходниках
   
   if(CUr.CustCat=="EXEC")then begin
     CUr.SalesGroup = "EXEC";
