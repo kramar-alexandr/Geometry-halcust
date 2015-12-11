@@ -4553,7 +4553,7 @@ begin
     end;
     if (HasModTS) then begin
   SpecialMenu("Додати утримання",' ',25,"RetentionLineVIDsm"); 
-    end;
+    end;    
     if (HasWithholdingTax) then begin
   SpecialMenu("Додати под. утрим.",' ',26,"WithholdingLineVIDsm"); 
       end;
@@ -5830,24 +5830,6 @@ begin
   EndWindow;
 end;
 
-
-window QTSettTClass:1
-  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
-begin
-  real f,h,v,vs;
-  WindowBegin("Настройки пропозиції",QTSettTClass,CGSbl,-);
-  SetWRect(64,80,470,185);
-  SetBlid(QTSettBlock);
-  v = 0; vs = 25; h = 75; f = 150;
-  EditField(h=140,v=6,100,"Дійсно днів",Normal,DefaultValidDays,false,0);
-  CheckBox(h,v+=25,0,"Вимагати вид пропозиції",ReqQTClass); 
-  CheckBox(h,v+=16,0,"Не довзол. рахунки більше, ніж пропозиц.",DisallowInvoicemorethanQuoted); 
-  if (CurrentUser=="JFA" or CurrentUser=="FD") then begin // 62
-	CheckBox(h,v+=32,0,"Не вимагати унікальність проекту.",PRQTClass);// 62
-  end;// 62 
-  
-  EndWindow;
-end;
 
 
 
