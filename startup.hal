@@ -335,8 +335,7 @@ begin
   StrSetText(RoyaltyRepToIV,"Invoice from Royalty Sales records");
   //StrSetText(AuthIntOrd,"Authorise Internal Orders");, changed funcionality to Accpetance
   //ERIK, HansaMail special
-  EndStrSet;
-  
+  EndStrSet;	
 	// Edit End ---------------------------------------------- Edit End
 	
 return;
