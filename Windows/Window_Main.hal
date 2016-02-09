@@ -274,7 +274,7 @@ external function Boolean HasBankImport();
 
 
 window PRDClass:4
-  wtag("language","ukr"), wtag("product","*"), wtag("productcode","*"), wtag("device","*")
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","*")
 begin
   real h,h2,v,vs,vm;
   string 255 label;
