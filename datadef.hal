@@ -4,10 +4,6 @@ SourceFile("halcust\\Windows",0);
 
 begin
 
-  RecordAddBegin(VATIVVc,"MyVATIV"); //Edit***************************Sasha2,13:44 08.02.2016 {
-    ChangeMatrixField(vRebate,M4Val,0,0);
-  EndRecordAdd; //Edit***************************Sasha2,13:44 08.02.2016 }
-
 RecordAddBegin(INVc,"Myartikel5");
   SubsetKeyBegin2(ActCodeTS);// was added
   StoreInBaseKey;
@@ -926,6 +922,7 @@ RecordAddBegin(VATIVVc,"MyVATIV");
   RecordField(ContractPayDeal,M4Str,60,0)
   RecordField(OperType,M4Code,10,0); 
   RecordField(DebRow,M4Code,10,0); // Edit ************************** Thursday, 31 October 2013 14:08:59
+  ChangeMatrixField(vRebate,M4Val,0,0); //Edit***************************Sasha2,10:48 09.02.2016
   KeyBegin(VEPN);
   KeySegment(VEPN);
   KeySegment(SerNr);  
