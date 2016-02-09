@@ -4,6 +4,9 @@ SourceFile("halcust\\Windows",0);
 
 begin
 
+  RecordAddBegin(VATIVVc,"MyVATIV"); //Edit***************************Sasha2,13:44 08.02.2016 {
+    ChangeMatrixField(vRebate,M4Val,0,0);
+  EndRecordAdd; //Edit***************************Sasha2,13:44 08.02.2016 }
 
 RecordAddBegin(INVc,"Myartikel5");
   SubsetKeyBegin2(ActCodeTS);// was added
@@ -1002,8 +1005,6 @@ EndRecordAdd;
 		KeySegment(Name);
 		KeySegment(Code);
   EndRecord;
-
-
     
  return;
 end;
