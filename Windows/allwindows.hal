@@ -3052,7 +3052,7 @@ if (HasTouchScreenLook==false) then begin
   SpecialMenu("Створити акт/накл. EDI",' ',9,"DoEDIInvFromIVD");
   end;
   SpecialMenu("Створити E-Mail",'m',23,"CreateMailFromIVDsm");
-  if (HasLocalization("UKR")) then begin 
+  if (true) then begin 
   SpecialMenu("Створити Податкову накл.",' ',18,"FirstEventIVDsm");
   end;
   SpecialMenu("Податкова накладна (нова)",' ',17,"VATCorrectionIVsm");// SAV Gray-5 2011_01_03
@@ -4216,7 +4216,7 @@ begin
     TileButton(tilenr,"Витрати"); tilenr = tilenr + 1; //!!PRODTRANSLATE
     TileButton(tilenr,"Валюта"); tilenr = tilenr + 1; //!!PRODTRANSLATE
     if (IsEnterprise) then begin
-      if (HasLocalization("UKR")) then begin 
+      if (true) then begin 
       TileButton(tilenr,"ПДВ курс"); tilenr = tilenr + 1; //!!PRODTRANSLATE
       end;
       TileButton(tilenr,"Коментар"); tilenr = tilenr + 1; //!!PRODTRANSLATE
@@ -4600,7 +4600,7 @@ begin
     if ((HasModNL and HasMultiCurrency) and (StandardHansa==false)) then begin
   SpecialMenu("Створити внутрішній акт/накл.",' ',12,"IntIVFromVIDsm");
     end;
-    if (HasLocalization("UKR")) then begin //!!PRODTRANSLATE
+    if (true) then begin //!!PRODTRANSLATE
   SpecialMenu("Створити податкову накл. (стар.)",' ',10,"FirstEventVIDsm");
     end;
     if (HasLocalization("HRV,POL,RUS,SLV,SVN,SRB,UKR")) and (HasModNL) then begin
@@ -6606,7 +6606,7 @@ begin
   end;
   EditField(h2,v, 82,"Дата операції",Normal,TransDate,false,PasteCurDate);
   EditField(h3+50,v, 82,"Дата",Normal,VATVIDate,false,PasteCurDate);
-  if (HasLocalization("UKR")) then begin
+  if (true) then begin
   EditField(h3+240,v,-40,"Вид докум.",Normal,VATVIType,false,VATVITypeSClass);
   end;
   EditField(75,v+=20,82, "Постачальник",ViewOnly,VECode,false,VESClass);
@@ -6638,7 +6638,7 @@ begin
   EditField(h2,v+20,200,"ПН постачальника",Normal,VEPN,false,0); 								// SAV Gray-5 2011_01_03
   EditField(h4,v,82,"Термін сплати",ViewOnly,VIDueDate,false,0);
   EditField(h1,v+=vs,82,"Дата акту/накл.",ViewOnly,VITransDate,false,PasteCurDate);
-  if (HasLocalization("UKR")) then begin 
+  if (true) then begin 
   EditField(h2,v,82,"Порядков.номер",Normal,MonthSeqNr,false,0);
   end;
   if (HasSettlementDiscount) then begin
@@ -6758,12 +6758,12 @@ begin
   EditField(h+120,v,60,"Платіж",ViewOnly,IPNr,false,0);
   EditField(h+260,v,60,"Передплата",ViewOnly,CUPNr,false,0);
   end;
-  if (HasLocalization("UKR")) then begin 
+    if (true) then begin 
   EditField(h+400,v,-40,"Вид докум.",Normal,VATIVType,false,VATIVTypeSClass);
   EditField(75,v+=vs,80,"№ контракту",Normal,ORCONr,false,ORCOSClass);
   end;
   tilenr = 1;
-  TileButton(tilenr,"Двти"); tilenr = tilenr + 1;
+  TileButton(tilenr,"Дати"); tilenr = tilenr + 1;
   TileButton(tilenr,"Товари"); tilenr = tilenr + 1;
   if (HasMultiCurrency or HasBase2) then begin
   TileButton(tilenr,"Валюта"); tilenr = tilenr + 1;
@@ -6793,13 +6793,13 @@ begin
   EditField(h4,v, 100,"Код податк. забов.",Normal,DebRow,false,IVDebRowsSClass);// Edit ************************** Thursday, 31 October 2013 14:12:18
 	v = v + vs; 	//Edit-------------------Dima 30.11.2015 (from Hansa 6 -> 8)
  
-  if (HasLocalization("UKR")) then begin
+  if (true) then begin
   EditField(h4,v,82,"Тип причини",Normal,OriginalAtOurCompany,false,VATIVReasonSClass);
     v = v + vs;
   end else begin
     v = v + vs;
   end;
-  if (HasLocalization("UKR")) then begin
+  if (true) then begin
   EditField(h4,v,82,"Порядков. номер",ViewOnly,MonthSeqNr,false,0);
     EditField(h1,v,82,"Прич.коригуван.",Normal,CorrectionReason,false,0);
     v = v + vs;
