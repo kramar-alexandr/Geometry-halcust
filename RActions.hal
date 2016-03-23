@@ -944,9 +944,51 @@ updating function LongInt OPVcRecordCheck(record OPVc OPp,record OPVc OP2p,LongI
 BEGIN
   LongInt res;
   row OPVc OPrw;
-  Integer i;
+  Integer i,k;
+  longint max;
+  record OPVc olsOPr;
+  boolean TrHs;
   
   SetLangMode(LangUkrainian,"UKR",0);
+  
+  
+  olsOPr.SerNr=9999999;
+  TrHs = true;
+  k = 0;
+  max = 0;
+  while(loopbackkey("SerNr",olsOPr,1,TrHs))begin
+  	if(k>20)then begin TrHs = false;	end;
+  	
+  	if(olsOPr.SerNr!=OPp.SerNr)then begin
+			for (i=0; i<MatRowCnt(olsOPr); i=i+1) begin
+			MatRowGet(olsOPr,i,OPrw);
+				if(max<OPrw.KBExportNum)then begin
+					max = OPrw.KBExportNum;
+				end;
+			end;
+  	end else begin
+  		for (i=0; i<MatRowCnt(OPp); i=i+1) begin
+			MatRowGet(OPp,i,OPrw);
+				if(max<OPrw.KBExportNum)then begin
+					max = OPrw.KBExportNum;
+				end;
+			end;
+  	end;
+  	
+  	
+  	k=k+1;
+  end;
+  
+  for (i=0; i<MatRowCnt(OPp); i=i+1) begin
+    MatRowGet(OPp,i,OPrw);
+  	
+  	if(OPrw.KBExportNum<=0)then begin
+  		OPrw.KBExportNum = max + 1;
+  		max = max + 1;
+  		MatRowPut(OPp,i,OPrw);
+  	end;
+  	
+  end;
   
   res=0;
     for (i=0; i<MatRowCnt(OPp); i=i+1) begin

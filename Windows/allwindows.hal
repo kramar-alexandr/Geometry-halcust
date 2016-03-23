@@ -3273,6 +3273,204 @@ end;
 
 
 
+window OPDClass:2
+  wtag("language","UKR"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer") 
+begin
+  real h,h2,h3,h4,t,v,vm,vs,fl,v2;
+  record CYBlock CYb;
+  Integer f,flipnr;
+
+ WindowBegin("Платіж постачальнику",OPDClass,CGview,-);
+  SetWRect(20,80,640,464);
+  Sizeable(-1,-1,0,0);
+  UseView(OPVc);
+  ActiveFieldOnNew("PayDate");    
+  h = 100; h2 = 280; h3 = 490; v = 6;
+  Tile(0,110,false,"",SerNr);
+  EditField(h,v, 80,"Номер",St_i,SerNr,false,TSerSClass);
+  EditField(h2,v,80,"Дата сплати",Normal,PayDate,false,PasteCurDate);
+  EditField(h3,v,82,"Дата операції",Normal,TransDate,false,PasteCurDate);
+  
+  HalPushButton(h3+100,v,h3+150,v+20,"ClientBankOPDsm","Експорт");
+  
+  EditField(h,v+=20,30,"Спосіб сплати",Normal,PayMode,false,PMSClass);
+  EnterSkip(Math);
+  EditField(h2,v,120,"Р/р платника",Normal,BankAcc,false,0);
+  EditField(h3,v,82,"Ключ сорт.",Normal,SortCode,false,0);
+  EditField(h,v+=20,80,"Посилання",Normal,PayNumber,false,0);
+  CheckBox(h2,v,0,"Інформ. про пост-ка в ГК",APonTR);
+  EditField(h3,v,82,"Мова",Normal,LangCode,false,LangSClass);
+  EditField(h,v+=20,472,"Коментар",Normal,BankName,false,0);
+  EnterSkip(Math);
+  vs = 20;
+//  CheckBox(h,v=6,0,"Відхилено",RejectedFlag);//not used any more
+//  CheckBox(h2,v,0,"Інф. о постачальнике в запису опер.",APonTR);
+  TileButton(1,"Платежі");
+  TileButton(2,"Банк");
+  Tile(1,120,true,"1",Math);
+  CheckBox(25,v=-39,0,"Замовлено",OrderedFlag);
+  CheckBox(25,v=-20,0,"OK",DoneFlag);
+  HalPushButton(150,-50,150+100,-5,"EPaymentSignOPDsm","Підпис");
+  HalPushButton(150,-25,150+100,-5,"EPaymentQueOPDsm","В банк"); //4.4
+  EditField(-300,-21,50,"Валюта",Normal,PayCurCode,false,CurncyCodeSClass);
+  EditField(-125,-21,85,"Всього",Normal,CurPayVal,true,0);
+  h=4;
+//  MatrixBegin(h,v=24,-50,-40,-,99);
+  MatrixBegin(h,v=24,-50,-49,-,200);
+  vm = v;
+  MatTypedRow(stp);
+  MatOverStrike(ovst);
+  Flip(0);
+  MatCol(t=1,24,"№",0,KBExportNum,false,0);// Edit ************************** Wednesday, 23 March 2016 11:14:00
+  MatCol(t=1,60,"Акт/накл.",0,VISerNr,false,APSClass);
+  MatCol(t,105,"Постач-ник",0,VECode,false,VESClass);
+  EnterSkip(RecVal);
+  MatCol(t=5,24,"",0,VISerNr,false,APSClass);
+  MatText(t,70,"Знижка",true);
+  MatCol(t,140,"Об'єкт",0,Objects,false,ObjSClass);
+  MatCol(t,-360,"Вал.накл.пост.",0,PInvCurncy,true,0);
+  MatCol(t,-320,"Сума накл.",0,PInvVal,true,0);
+  MatCol(t,-240,"Валюта банку",0,BankCurncy,true,CurncyCodeSClass);
+  MatCol(t,-200,"Сума банку",0,BankVal,true,0);
+  MatCol(t,-120,"Вал.платежу",0,RecCurncy,true,CurncyCodeSClass);
+  MatCol(t,-80,"Перераховано",0,RecVal,true,0);
+  MatCol(t=7,24,"",0,VISerNr,false,APSClass);
+  MatText(t,-480,"Коміс.банку",true);
+  MatCol(t,-390,"Вал.накл.пост.",0,PInvCurncy,true,0);
+  MatCol(t,-350,"Сума накл.",0,PInvVal,true,0);
+  MatCol(t,-260,"Вал.банку",0,BankCurncy,true,CurncyCodeSClass);
+  MatCol(t,-220,"Сума банку",0,BankVal,true,0);
+  MatCol(t,-130,"Вал.платежу",0,RecCurncy,true,CurncyCodeSClass);
+  MatCol(t,-90,"Перераховано",0,RecVal,true,0);
+  Flip(1);//A
+  MatCol(t=1,190,"Коментар",0,Comment,false,0);
+  MatCol(t,-260,"Валюта",0,BankCurncy,true,CurncyCodeSClass);
+  MatCol(t,-220,"Сума банку",0,BankVal,true,0);
+  MatCol(t,-130,"Вал.пл",0,RecCurncy,true,CurncyCodeSClass);
+  MatCol(t,-90,"Перераховано",0,RecVal,true,0);
+  Flip(2);//B
+  MatCol(t=1,190,"Коментар",0,Comment,false,0);
+  MatCol(t,-320,"№ зам.",0,OrderNr,false,POSClass);
+  MatCol(t,-230,"№ передплати",0,PrepayNr,false,OPPSClass);
+  MatCol(t,-130,"Вал.",0,RecCurncy,true,CurncyCodeSClass);
+  MatCol(t,-90,"Перераховано",0,RecVal,true,0);
+  Flip(3);//C
+  MatCol(t=1,190,"Коментар",0,Comment,false,0);
+  MatCol(t,-310,"Код",0,VATCode,false,VATCodeSClass);
+  MatCol(t,-270,"ПДВ",0,VATVal,false,0);
+//  MatCol(t,-200,"Extra Tax",0,TAX1Sum,false,0);
+  MatCol(t,-130,"Вал.",0,RecCurncy,true,CurncyCodeSClass);
+  MatCol(t,-90,"Перераховано",0,RecVal,true,0);
+  Flip(4);//D
+  MatCol(t=1,190,"Рахунок кредиторів",0,APAcc,false,AccSClass);
+  MatCol(t,-320,"Посил. банку",0,BankRefStr,false,0);
+  MatCol(t,-220,"На рахунок банку",0,BankAcc,false,VEBankAccSClass);
+  MatCol(t,-90,"Ключ сортування",0,SortCode,false,0);
+  Flip(5); //E
+  MatCol(t=1,190,"Коментар",0,Comment,false,0);
+  MatCol(t,-270,"Сп.опл.",0,PayMode,false,PMSClass);
+  MatCol(t,-220,"№ чека",0,ChequeNr,false,0);
+  MatCol(t,-130,"Вал.",0,RecCurncy,true,CurncyCodeSClass);
+  MatCol(t,-90,"Перераховано",0,RecVal,true,0);
+  Flip(6);//F
+  MatCol(t=1,190,"Коментар",0,Comment,false,0);
+  MatCol(t,-260,"Об'єкти",0,Objects,false,ObjSClass);
+  MatCol(t,-130,"Вал.",0,RecCurncy,true,CurncyCodeSClass);
+  MatCol(t,-90,"Перераховано",0,RecVal,true,0);
+  Flip(7);//G
+  MatCol(t=1,190,"Рахунок округлення",0,RoundOffAcc,false,AccSClass);
+  MatCol(t,-360,"Округлення",0,RoundOff,true,0);
+  MatCol(t,-300,"Instalment",0,InstNr,false,APInstallSClass);
+  MatCol(t,-220,"W. Tax",0,WHTax,false,WHTaxSClass);
+  MatCol(t,-170,"Reference Number",0,rkPayNumber,false,0);
+  MatCol(t,-70,"Кліент-банк",0,KBExportNum,false,0);
+  Flip(8);//H
+  MatCol(t=1,190,"Коментар",0,Comment,false,0);
+  MatCol(t,-350,"Валюта акту/накл.",0,PInvCurncy,true,0);
+  MatCol(t,-310,"Не сплач.",0,PInvOutstand,false,0);
+  MatCol(t,-220,"Сума накл.",0,PInvVal,true,0);
+  MatCol(t,-130,"Вал.",0,RecCurncy,true,CurncyCodeSClass);
+  MatCol(t,-90,"Перераховано",0,RecVal,true,0);
+  Flip(9);
+  MatCol(t=1,200,"Вал.",0,BankCurncy,true,CurncyCodeSClass);
+  MatCol(t,-400,"Сума банку",0,BankVal,true,0);
+  MatCol(t,-330,"Комісія",0,BankFeeVal,true,0);
+  MatCol(t,-270,"У вал. бан. 1",0,ToRateB1BankVal,true,0);
+  MatCol(t,-200,"Б. вал. 1",0,B1BankVal,true,0);
+  MatCol(t,-130,"Б. вал. 2",0,B2BankVal,true,0);
+//  MatCol(t,-120,"% ком.",0,BankFeePrc,true,0); /* What was this ?? */
+  MatCol(t,-60,"Коефіціент,знач.",0,Coef,true,0);
+  Flip(10);
+  MatCol(t=1,-470,"Вал. банку",0,BankCurncy,true,CurncyCodeSClass);
+  MatCol(t,-430,"Сума банку",0,BankVal,true,0);
+  MatCol(t,-350,"Курс",0,FrRateBankVal,true,0);
+  MatCol(t,-310,"У вал. бан. 1",0,ToRateB1BankVal,true,0);
+  MatCol(t,-240,"У вал. бан. 2",0,ToRateB2BankVal,true,0);
+  MatCol(t,-170,"Осн. курс 1",0,BaseRate1BankVal,true,0);
+  MatCol(t,-90,"Осн. курс 2",0,BaseRate2BankVal,true,0);
+  InsertRowTest;
+  DeleteRowTest;
+  EndMatrix;
+  vs = 20;
+  v = 18; VTab(-35,v,-16,v+vs,ToolFlip,1,"A");
+  v=v+vs;  VTab(-35,v,-16,v+vs,ToolFlip,2,"B");
+  v=v+vs;  VTab(-35,v,-16,v+vs,ToolFlip,3,"C");
+  v=v+vs;  VTab(-35,v,-16,v+vs,ToolFlip,4,"D");
+  v=v+vs;  VTab(-35,v,-16,v+vs,ToolFlip,5,"E");
+  v=v+vs;  VTab(-35,v,-16,v+vs,ToolFlip,6,"F");
+  v=v+vs;  VTab(-35,v,-16,v+vs,ToolFlip,7,"G");
+  v=v+vs;  VTab(-35,v,-16,v+vs,ToolFlip,8,"H");
+  v=v+vs;  VTab(-35,v,-16,v+vs,ToolFlip,9,"I");
+  v=v+vs;  VTab(-35,v,-16,v+vs,ToolFlip,10,"J");
+  Tile(2,120,true,"1",BankAcc);
+  v=6; h= 100;
+  EditField(h,v,120,"Рахунок банку",Normal,BankAcc,false,0);
+
+  CheckBox(h2,v,0,"Платіж за кордон",ForeignPayment);
+  ButtonFrame(h=40,vm=(v+=40),123,3,"Формат платіжок");
+  RadioButton(h,v,0,0,"Один платіж на рядок",PayperSupplier);
+  RadioButton(h,v+=16,1,0,"Один платіж на постач.",PayperSupplier);  
+  RadioButton(h,v+=16,2,0,"Разом",PayperSupplier);  
+  RadioButton(h,v+=16,3,0,"Один платіж на банк",PayperSupplier);  
+  ButtonFrame(h2=190,v=vm,123,3,"Тип платежу");
+  RadioButton(h2,v,0,0,"звичайний",PayMethod);
+  RadioButton(h2,v+=16,1,0,"експрес",PayMethod);
+  RadioButton(h2,v+=16,2,0,"терміново",PayMethod);  
+  ButtonFrame(h3=340,v=vm,123,3,"Комісія банку");
+  RadioButton(h3,v,0,0,"сплачуємо ми",Bankfees);
+  RadioButton(h3,v+=16,1,0,"сплачує постачальник",Bankfees);
+  RadioButton(h3,v+=16,2,0,"навпіл",Bankfees);  
+  ButtonFrame(h3=490,v=vm,123,6,"Статус затвердження");
+  RadioButton(h3,v,kAcceptanceStateNotRequired,0,"не потрібно",AcceptanceStatus);
+  RadioButton(h3,v+=16,kAcceptanceStateNotStarted,0,"не розпочато",AcceptanceStatus);
+  RadioButton(h3,v+=16,kAcceptanceStateNotRequested,0,"не було запиту",AcceptanceStatus);
+  RadioButton(h3,v+=16,kAcceptanceStatePending,0,"очікування",AcceptanceStatus);
+  RadioButton(h3,v+=16,kAcceptanceStateApproved,0,"затвердженно",AcceptanceStatus);
+  RadioButton(h3,v+=16,kAcceptanceStateRejected,0,"незатверджено",AcceptanceStatus);    
+/*  
+  CheckBox(25,v=-39,0,"O_rdered",OrderedFlag);
+  CheckBox(25,v=-20,0,"OK",DoneFlag);
+  HalPushButton(150,-30,150+100,-5,"EPaymentQueOPDsm","Send to Bank"); 
+*/  
+  SpecMenuItem("Друкована форма",' ',0); // any code for this one??, no code
+  SpecialMenu("(-",' ',1,"");
+  SpecialMenu("Додати знижку",' ',2,"CashDiscountOPDsm");
+  SpecialMenu("Відправити для затвердження",' ',14,"OPSendforAcceptanceOPDsm");
+  SpecialMenu("Додати комісію банку",' ',3,"NewFeeOPDsm");
+  SpecialMenu("Відкрити запис операції",'t',5,"OpenTRFromOP");
+  SpecialMenu("Задати номер чеку",' ',6,"AssignChequeOPDsm");
+  SpecialMenu("Підготувати чек",' ',9,"PrepChecqOPDsm");
+  SpecialMenu("Створити видатковий ордер",' ',8,"CLOutFromOPDsm");  
+  SpecialMenu("Створити E-Mail",'m',9,"CreateMailFromOPDsm");
+  SpecialMenu("Створити податкову накл. (стар.)",' ',10,"FirstEventOPDsm");
+  SpecialMenu("Створити податкову накладну",' ',9,"VATCorrectionOPsm");
+  SpecialMenu("Розрахувати утримання",' ',11,"WithholdTaxesOPDsm");
+  SpecialMenu("Статус банку",' ',12,"BankStOPDsm");
+  SpecialMenu("Статус електроного платежу",' ',13,"EPaymentStatusOPDsm");
+  SpecialMenu("Роздрукувати касовий ордер",' ',4,"PrintCashInOutOPDsm");
+  EndWindow;
+end;
+
 
 
 
@@ -3346,12 +3544,12 @@ begin
   Flip(0);
   if (HasPreferedOfficialSerNr) then begin
     if (HasLocalization("POL,RUS")) then begin
-      MatCol(t=kReceiptRowTypeNormal,30,"Акт/накл.",0,InvoiceOfficialSerNr,false,ARSClass); 
+      MatCol(t=kReceiptRowTypeNormal,60,"Акт/накл.",0,InvoiceOfficialSerNr,false,ARSClass); 
     end else begin
-  MatCol(t=kReceiptRowTypeNormal,30,"Акт/накл.",0,InvoiceNr,false,ARSClass);
+  MatCol(t=kReceiptRowTypeNormal,60,"Акт/накл.",0,InvoiceNr,false,ARSClass);
     end;
   end else begin
-    MatCol(t=kReceiptRowTypeNormal,30,"Акт/накл.",0,InvoiceNr,false,ARSClass); 
+    MatCol(t=kReceiptRowTypeNormal,60,"Акт/накл.",0,InvoiceNr,false,ARSClass); 
   end;
   EnterSkip(RecVal);
   MatCol(t,125,"Клієнт",0,CustCode,false,CUSClass);
