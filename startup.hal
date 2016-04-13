@@ -84,7 +84,11 @@ begin
 	Setting("Податкові накладні (кр)",FEVILClass,modPL);//Edit-------------------Dima 26.11.2015 (from Hansa 6 -> 8)
 	Setting("Податкові накладні отримані",VATVILClass,modPL);//Edit-------------------Dima 30.11.2015 (from Hansa 6 -> 8)
 	Setting("Податкові накладні (звич.)",FEIVLClass,modSL);	//Edit-------------------Dima 30.11.2015 (from Hansa 6 -> 8)
-
+  
+  Module("СМС повідомлення","",730,modSMS);//Edit-------------------Vitalii 11:39 25.03.2016
+  Setting("Налаштування СМС",SMSConfigTClass,modSMS);//Edit-------------------Vitalii 11:42 25.03.2016
+  Report("TEST",TestRClass,TestRn,0,modSMS);
+	
 	
   SetBegin(461);//SAV 2011_12_20 from 6.3
   SetText(kVIRateFromPurchaseOrder,"From Purchase Order");

@@ -5,12 +5,12 @@ external updating function LongInt OPVcRecordCheck(record OPVc,record OPVc,LongI
 external updating function LongInt SDVcRecordCheck(var record SDVc,record SDVc,LongInt,LongInt);
 external updating function LongInt PUVcRecordCheck(var record PUVc,record PUVc,LongInt,LongInt);
 external function LongInt IntORVcRecordCheck(record IntORVc,record IntORVc,LongInt,LongInt);
-external function LongInt QTVcRecordCheck(record QTVc,record QTVc,LongInt,LongInt);
+external updating function LongInt QTVcRecordCheck(record QTVc,record QTVc,LongInt,LongInt);
 external updating function LongInt ORVcRecordCheck(record ORVc,record ORVc,LongInt,LongInt);
 external updating function LongInt VIVcRecordCheck(record VIVc,record VIVc,LongInt,LongInt);
 external function LongInt TBBUVcRecordCheck(var record TBBUVc,record TBBUVc,LongInt,LongInt);
 external updating function LongInt IVVcRecordCheck(record IVVc,record IVVc,LongInt,LongInt);
-external function LongInt POVcRecordCheck(var record POVc,record POVc,LongInt,LongInt);
+external updating function LongInt POVcRecordCheck(var record POVc,record POVc,LongInt,LongInt);
 external function LongInt LeaveTransferVcRecordCheck(var record LeaveTransferVc,record LeaveTransferVc,LongInt,LongInt);
 external function LongInt LeaveApplicationVcRecordCheck(var record LeaveApplicationVc,record LeaveApplicationVc,LongInt,LongInt);
 external updating function LongInt ExpVcRecordCheck(var record ExpVc,record ExpVc,LongInt,LongInt);

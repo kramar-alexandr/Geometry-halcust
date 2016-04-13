@@ -11,7 +11,7 @@
 //RA10 - QTVc - Очистка Authority при дублицировании. 
 // RA11 TBBUVc проверка на наличие подтверженных коммерчески пропозиций при сохраненни бюджета проекта  // 6006 SAV 2010_09_03
 external updating function Integer CreateOKFlagMail(longint,var record MailVc,string, string);
-external Procedure CUVcHistory(record CUVc,record CUVc);
+external updating Procedure CUVcHistory(record CUVc,record CUVc);
 remote function integer SetAlertFlag(record POVc);
 external inner procedure POSumup(var record POVc);// Edit ************************** Friday, 30 November 2012 16:45:28
 external function Boolean PODchrsum(record POVc,Integer);

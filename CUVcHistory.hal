@@ -1,4 +1,4 @@
-external procedure SaveHistory(string, string, string, string, string);
+external updating procedure SaveHistory(string, string, string, string, string);
 //external inner procedure DblRHist(string,string,integer);
 
 global updating

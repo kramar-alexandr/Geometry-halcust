@@ -7763,3 +7763,34 @@ begin
   SearchField("Пошук");
   EndWindow;
 end;
+
+window SMSConfigTClass:1
+  wtag("language","RUS"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  real h,v,vs;
+  WindowBegin("Налаштування СМС",SMSConfigTClass,CGSbl,-);
+  SetBlid(SMSConfigBlock);
+  SetWRect(64,80,500,300);
+  v=6;vs = 20; h = 120;
+ 	EditField(h,v,200,"Логін",Normal,Login,false,0);
+  EditField(h,v+=vs,200,"Пароль",Normal,Password,false,0);
+  EditField(h,v+=vs,200,"Host",Normal,Host,false,0);
+  EditField(h,v+=vs,200,"Page",Normal,Page,false,0);
+  EditField(h,v+=vs,200,"Баланс",ViewOnly,Balance,false,0);
+  EditField(h,v+=vs,200,"Остання помилка",Normal,LastErr,false,0);
+  EditField(h,v+=vs,80,"Дата помилки",Normal,LEDate,false,0);
+  EditField(h+120,v,80,"Час",Normal,LETime,false,0);
+  EndWindow;
+end;
+
+window TestRClass:1
+  wtag("language","RUS"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  real h,v,vs;
+
+  WindowBegin("TestRClass",TestRClass,CGRcW,RcType);
+  SetWRect(20,80,400,200);
+  h = 110; v = 15; vs = 20;
+  EndWindow;
+
+end;
