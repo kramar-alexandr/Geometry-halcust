@@ -7774,9 +7774,11 @@ begin
   v=6;vs = 20; h = 120;
  	EditField(h,v,200,"Логін",Normal,Login,false,0);
   EditField(h,v+=vs,200,"Пароль",Normal,Password,false,0);
+  EditField(h,v+=vs,200,"Підпис",Normal,Sign,false,0);
   EditField(h,v+=vs,200,"Host",Normal,Host,false,0);
   EditField(h,v+=vs,200,"Page",Normal,Page,false,0);
-  EditField(h,v+=vs,200,"Баланс",ViewOnly,Balance,false,0);
+  EditField(h,v+=vs,80,"Баланс",Normal,Balance,false,0);
+  HalPushButton(h+90,v,h+200,25,"UpdBalSMS","Оновити баланс");
   EditField(h,v+=vs,200,"Остання помилка",Normal,LastErr,false,0);
   EditField(h,v+=vs,80,"Дата помилки",Normal,LEDate,false,0);
   EditField(h+120,v,80,"Час",Normal,LETime,false,0);

@@ -1012,6 +1012,7 @@ EndRecordAdd;
     RecordField(LastErr,M4Str,255,0);
     RecordField(LEDate,M4Date,0,0);
     RecordField(LETime,M4Time,0,0);
+    RecordField(Sign,M4Str,255,0);
 	EndBlock; 
     
  return;
