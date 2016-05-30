@@ -4783,7 +4783,6 @@ begin
       SpecialMenu("Запитати затвердження",' ',6,"VISendforAcceptanceVIDsm");  
       SpecialMenu("Відмінити запит затвердження",' ',2,"CancelApprovalRequestDsm");  
     end;
-	SpecialMenu("Створити податкову накладну (клієнт)",' ',9,"VATCorrectionIVNewsm");// Edit ************************** Thursday, 1 August 2013 17:17:37    
     SpecMenuGroup("",kSpecMenuGroupTypeExtendedPlusMenu,0);  
     if (HasModCRM) then begin
 //      SpecialMenu("Activity",'c',4,"ActFromVIDsm");
@@ -4804,6 +4803,9 @@ begin
     if (HasLocalization("HRV,POL,RUS,SLV,SVN,SRB,UKR")) and (HasModNL) then begin
   SpecialMenu("Створити податкову накладну",' ',9,"VATCorrectionVIsm");
 		end;
+		SpecialMenu("Створити податкову накладну (клієнт)",' ',9,"VATCorrectionIVNewsm");// Edit ************************** Thursday, 1 August 2013 17:17:37    
+
+		
 
 end;
   EndWindow;
@@ -6790,7 +6792,104 @@ begin
   real h,h1,h2,h3,h4,t,v,vm,vs;
   Integer tilenr;
   
-  WindowBegin("Податкова накладна постачальника",VATVIDClass,CGview,-);
+  WindowBegin("Податкова накладна постачальника",VATVIDClass,CGview,-); // SAV Gray-5 2011_01_03
+  SetWRect(20,80,620,420);
+  Sizeable(-1,-1,0,0);
+  FormName(PrintVATVID);  
+  UseView(VATVIVc);
+  v = 6; vs = 20; h2 = 240; h3 = 390; h4=-122;
+  Tile(0,110,false,"",VINr);
+  EditField(75,vm=(v=6), 82,"Номер",Normal,SerNr,false,TSerSClass);
+  EditField(h2,v, 82,"Дата операції",Normal,TransDate,false,PasteCurDate);
+  EditField(h3+50,v, 82,"Correction Date",Normal,VATVIDate,false,PasteCurDate);
+  EditField(h3+240,v,-40,"Correction Type",Normal,VATVIType,false,VATVITypeSClass);
+  EditField(75,v+=20,82, "Постачальник",Normal,VECode,false,VESClass);
+  EditField(h=h2,v,-40,"Найменування",ViewOnly,VEName,false,0);
+  EditField(h=75,vm=(v+=20),82,"УСЬОГО",ViewOnly,PayVal,true,0);
+  EditField(h2,v,82,"Утримання",ViewOnly,HoldSum,true,0);
+  EditField(h3,v,-40,"Підпис",ViewOnly,OKPersons,false,UserSClass);
+  EditField(h,v+=20,82,"ПДВ",Normal,VATVal,true,0);
+  EditField(h2,v,82,"Тип госп. оп.",Normal,OperType,false,OperTypeSClass);
+  EditField(h3,v,50,"Акт/накл.",Normal,VINr,false,0);
+  EditField(h3+120,v,50,"Платіж",ViewOnly,OPNr,false,0);
+  EditField(h3+240,v,-40,"Передпл.",ViewOnly,PrepayNr,false,0);
+  TileButton(1,"Дати");
+  TileButton(2,"Рахунки");
+  TileButton(3,"Валюти");
+  Tile(1,92,false,"1",TransDate);
+  vs = 20; h1 = 110; h2 = 300; h3 = 480;
+  EditField(h1,vm=(v=6),82,"Терм. спл. ак./накл.",ViewOnly,VIDueDate,false,PasteCurDate);
+  EditField(h2,v,200,"Акт/накл. пост.",Normal,InvoiceNr,false,0);
+  EditField(h2,v+20,200,"ПН постачальника",Normal,VEPN,false,0); // SAV Gray-5 2011_01_03
+  EditField(h4,v,82,"Термін сплати",ViewOnly,VIDueDate,false,0);
+  EditField(h1,v+=vs,82,"Дата акту/накл.",ViewOnly,VITransDate,false,PasteCurDate);
+  EditField(h4,v,82,"Дата зниж.",ViewOnly,VIRebDate,false,0);
+  EditField(h1,v+=20,120,"Посилання",ViewOnly,RefStr,false,0);
+  EditField(h2,v,200,"Об'єкти",Normal,Objects,false,ObjSClass);
+  EditField(h4,v,55,"Кред.рахунок",ViewOnly,CredInv,false,APSClass);
+  EditField(h4,v+=20,55,"Код податк. кред.",Normal,CredRow,false,VICredRowsSClass);// Edit ************************** Thursday, 31 October 2013 14:15:42
+  EnterSkip(Math);
+  Tile(2,120,true,"2",Math);
+  EditField(140,-21,70,"Валюта",Normal,CurncyCode,false,CurncyCodeSClass);
+  EditField(-140,-21,100,"Разом ПДВ",ViewOnly,CalcVATVal,true,0);
+  v = 24;
+  MatrixBegin(4,v,-50,-26,-,99);
+  MatTypedRow(stp); //??
+  MatOverStrike(ovst);
+  Flip(0);
+  MatCol(1,24,"Рахунок",0,AccNumber,false,AccSClass);
+  MatCol(1,80,"Об'єкти",0,Objects,false,ObjSClass);
+  MatText(t=2,32,"Підпис",true);
+  MatCol(t,108,"",0,Sign,false,0);
+  MatText(t,160,"Дата старого зап.оп.",true);
+  MatColTL(t,290,"",0,-1,ViewOnly,-1,OldTransDate,false,0);
+  MatText(t=6,24,"Номер передпл.",true);
+  MatCol(t,170,"",0,PrepayNr,true,OPPSClass);
+  MatCol(t,-250,"",0,Comment,false,0);
+  MatCol(t,-160,"",0,PrepayAmount,true,0);
+  MatCol(t,-70,"",0,VATVal,true,0);
+  Flip(1);
+  MatCol(1,140,"Код рах.",0,ACShort,false,ACShortSClass);
+  MatCol(1,200,"Опис",0,Comment,false,0);
+  MatCol(1,-230,"Ціна",0,Price,true,0);
+  MatCol(1,-160,"%",0,vRebate,true,0);
+  MatCol(1,-120,"Сума",0,Sum,true,0);
+  MatCol(1,-30,"ПДВ",0,VATCode,false,VATCodeSClass);
+  Flip(2);
+  MatCol(1,140,"Опис",0,Comment,false,0);
+  MatCol(1,-260,"Сума",0,Sum,true,0);
+  MatCol(1,-190,"Товар",0,Item,false,INSClass);
+  MatCol(1,-130,"Кіл-ть",0,qty,true,0);
+  MatCol(1,-30,"ПДВ",0,VATCode,false,VATCodeSClass);
+  MatText(3,270,"",true);
+  Flip(3);
+  MatCol(1,140,"Опис",0,Comment,false,0);
+  MatCol(1,-180,"Сума",0,Sum,true,0);
+  MatCol(1,-100,"Майб.пер.",0,PeriodCode,false,AutSimPerSClass);
+  MatCol(1,-20,"Ряд",0,VIRow,false,0);
+  InsertRowTest;
+  DeleteRowTest;
+  EndMatrix;
+  CheckBox(25,v=-21,0,"OK",OKFlag);
+  vs = 22;
+  v = 18; VTab(-35,v,-16,v+vs,ToolFlip,1,"A");
+  v=v+ vs; VTab(-35,v,-16,v+vs,ToolFlip,2,"B");
+  v=v+ vs; VTab(-35,v,-16,v+vs,ToolFlip,3,"C");
+  Tile(3,70,false,"3",FrRate);
+  vs = 20;
+  EditField(h=110,v=6,50,"Валюта",Normal,CurncyCode,false,CurncyCodeSClass);
+  EditField(h2=295,v,50,"Курс",Normal,FrRate,true,0);
+  EditField(h3=360,v,50,":",Normal,ToRateB1,true,0);
+  StaticText(h3+60,v+12,"Осн. валюта 1",false);
+  EditField(h,v+=vs,50,"Осн. валюта 1",ViewOnly,BaseRate1,true,0);
+  EditField(h3,v,50,":",Normal,ToRateB2,true,0);
+  StaticText(h3+60,v+12,"Осн. валюта 2",false);
+  EditField(h,v+=vs,50,"Осн. валюта 2",ViewOnly,BaseRate2,true,0);
+  SpecialMenu("Відкрити запис операції",'t',0,"OpenTRFromVATVI");
+  SpecialMenu("Поновити дату операції",' ',0,"UpdateVATVIDsm");
+  EndWindow;
+  
+  /*WindowBegin("Податкова накладна постачальника",VATVIDClass,CGview,-);
   SetWRect(20,80,620,420);
   Sizeable(-1,-1,0,0);
   FormName(PrintVATVID);  
@@ -6890,39 +6989,7 @@ begin
   MatCol(1,-180,"Сума",0,Sum,true,0);
   MatCol(1,-100,"Майб.пер.",0,PeriodCode,false,AutSimPerSClass);
   MatCol(1,-20,"Ряд",0,VIRow,false,0);// Edit ************************** Monday, 30 May 2016 11:45:50
-  /*Flip(0);
-  MatCol(1,24,"Рахунок",0,AccNumber,false,AccSClass);
-  if (HasObjects) then begin
-  MatCol(1,80,"Об'єкти",0,Objects,false,ObjSClass);
-  end;
-  MatText(t=2,32,"Підпис",true);
-  MatCol(t,108,"",0,Sign,false,0);
-  MatText(t,160,"Дата старого зап.оп.",true);
-  MatColTL(t,290,"",0,-1,ViewOnly,-1,OldTransDate,false,0);
-  MatText(t=6,24,"Номер передпл.",true);
-  MatCol(t,170,"",0,PrepayNr,true,APPay3SClass);
-  MatCol(t,-250,"",0,Comment,false,0);
-  MatCol(t,-160,"",0,PrepayAmount,true,0);
-  MatCol(t,-70,"",0,VATVal,true,0);
-  Flip(1);
-  MatCol(1,140,"Код рах.",0,ACShort,false,ACShortSClass);
-  MatCol(1,200,"Опис",0,Comment,false,0);
-  MatCol(1,-120,"Сума",0,Sum,true,0);
-  MatCol(1,-30,"ПДВ",0,VATCode,false,VATCodeSClass);
-  Flip(2);
-  MatCol(1,140,"Опис",0,Comment,false,0);
-  MatCol(1,-260,"Сума",0,Sum,true,0);
-  MatCol(1,-190,"Товар",0,Item,false,INSClass);
-  MatCol(1,-130,"Кіл-ть",0,qty,true,0);
-  MatCol(1,-30,"ПДВ",0,VATCode,false,VATCodeSClass);
-  MatText(3,270,"",true);
-  Flip(3);
-  MatCol(1,140,"Опис",0,Comment,false,0);
-  MatCol(1,-180,"Сума",0,Sum,true,0);
-  if (HasSimAccruals) then begin
-  MatCol(1,-100,"Майб.пер.",0,PeriodCode,false,AutSimPerSClass);
-  end;
-  MatCol(1,-30,"Ряд.",0,VIRow,false,0); //!!PRODTRANSLATE*/
+
   InsertRowTest;
   DeleteRowTest;
   EndMatrix;
@@ -6961,7 +7028,7 @@ begin
   end;
   SpecialMenu("Відкрити запис операції",'t',0,"OpenTRFromVATVI");
   SpecialMenu("Поновити дату операції",' ',0,"UpdateVATVIDsm");
-  EndWindow;
+  EndWindow;*/
 end;
 
 
@@ -6972,6 +7039,132 @@ begin
   Integer tilenr;
   
   WindowBegin("Податкова накладна",VATIVDClass,CGview,-);
+  SetWRect(20,80,620,420);
+  Sizeable(-1,-1,0,0);
+  UseView(VATIVVc);
+  v = 6; vs = 20; h = 100;
+  Tile(0,70,false,"",IVNr);
+  EditField(75,vm=(v=6), 82,"Номер",Normal,SerNr,false,TSerSClass);
+  EnterSkip(IVNr);
+  EditField(75,v+=20,95, "Клієнт",Normal,CustCode,false,CUSClass);
+  EditField(h=226,v=vm,300,"Наймен.",ViewOnly,Addr0,false,0);
+  EditField(h+400,v,-40,"Тип госп. оп.",Normal,OperType,false,OperTypeSClass);
+  EditField(h,v+=20,60,"Акт/накл.",Normal,IVNr,false,0);
+  EditField(h+120,v,60,"Платіж клієнта",ViewOnly,IPNr,false,0);
+  EditField(h+260,v,60,"Передплата",ViewOnly,CUPNr,false,0);
+  EditField(h+400,v,-40,"Вид документа",Normal,VATIVType,false,VATIVTypeSClass);
+  TileButton(1,"Дати");
+  TileButton(2,"Товари");
+  TileButton(3,"Валюти");
+  TileButton(4,"Контракт");
+  Tile(1,112,false,"1",TransDate);
+  vs = 20; h1 = 110; h2 = 300; h3 = 480;
+  EditField(h1,vm=(v=6),82,"Дата операції",Normal,TransDate,false,PasteCurDate);
+  EditField(h1,v+=vs,82,"Дата акту/накл.",ViewOnly,IVPayDate,false,PasteCurDate);
+  EditField(h1,v+=vs,82,"Дата акту/накл",ViewOnly,IVTransDate,false,PasteCurDate);
+  EditField(h2,v=vm,135,"Відповідальний",Normal,OurContact,false,0);
+  EditField(h3+50,v,50,"Продавець",Normal,SalesMan,false,UserSClass);
+  EditField(h3+50,v+20,100,"Номер ПН",Normal,VEPN,false,0);
+  EditField(h3+50,v+40,100,"Номер кор. ПН",Normal,VECorPN,false,VATIVSpecSClass);
+  EditField(h3+50,v+60, 100,"Причина",Normal,Reason,false,StandProblemsSClass);
+  EditField(h3+50,v+80, 100,"Код податк. забов.",Normal,DebRow,false,IVDebRowsSClass);// Edit ************************** Thursday, 31 October 2013 14:12:18
+  EditField(h1,v+60, 100,"Підст. коригування",Normal,CorReason,false,StandProblemsSClass);
+	CheckBox(h2,v+60,0,"Включено до ЄРПН",IncludedERPN);
+  //CheckBox(h2,v,0,"Включено до ЄРПН",Included);
+  EditField(h2,v+=vs, 135,"Конт. особа",Normal,ClientContact,false,ContactSClass);
+  EditField(h2,v+=vs,135,"Об'єкт",Normal,Objects,false,ObjSClass);
+  EnterSkip(Math);
+  Tile(2,120,true,"2",Math);
+  EditField(65,-41,70,"Валюта",Normal,CurncyCode,false,CurncyCodeSClass);
+  EditField(190,-41,70,"Фрахт",ViewOnly,FrPrice,true,0);
+  EditField(190,-21,70,"Податок",ViewOnly,TAX1Sum,true,0);
+  EditField(310,-41,80,"ПДВ",ViewOnly ,Sum3,true,0);
+  EditField(310,-21,95,"Осн. 1",ViewOnly,BaseSum4,true,0);
+  EditField(-133,-41,95,"Разом",ViewOnly ,Sum1,true,0);
+  EditField(-133,-21,95,"Всього",ViewOnly ,Sum4,true,0);
+  v = 24;
+  MatrixBegin(4,v,-50,-49,-,200);
+  MatTypedRow(stp);
+  Flip(0);
+  MatCol(t=1,32,"Товар",0,ArtCode,false,INSClass);
+  MatCol(t,94,"Кіл-ть",0,Quant,true,0);
+  MatText(t=2,32,"Підпис",true);
+  MatCol(t,108,"",0,Sign,false,0);
+  MatText(t,160,"Стара дата зап.оп.",true);
+  MatColTL(t,290,"",0,-1,ViewOnly,-1,OldTransDate,false,0);
+  MatText(t=3,32,"Кред. накл.",true);
+  MatCol(t,208,"",0,OrdRow,false,ARSClass);
+  MatCol(t,-216,"",0,Spec,false,0);//MatText(t,-216,"",true);
+  MatText(t=5,32,"Аванс",true);
+  MatColTL(t,122,"",0,-1,ViewOnly,0,ArtCode,true,0); 
+  MatColTL(t,188,"",0,-1,ViewOnly,0,Quant,true,0);
+  MatCol(t,238,"",0,Spec,false,0);
+  MatColTL(t,-170,"",0,-1,Normal,0,Sum,true,0); //?? TL?
+  MatCol(t,-70,"",0,SalesAcc,false,AccSClass);
+  MatCol(t,-24,"",0,VATCode,false,VATCodeSClass);
+  MatText(t=11,32,"K",true);
+  MatCol(t,47,"Товар",0,ArtCode,false,INSClass);
+  MatCol(t,94,"Кіл-ть",0,Quant,true,0);  
+  Flip(1);
+  MatCol(t=1,144,"Опис",0,Spec,false,0);
+  MatCol(t,-235,"Ціна",0,Price,true,0);
+  MatCol(t,-135,"%",0,vRebate,true,0);
+  MatCol(t,-100,"Сума",0,Sum,true,0);
+  MatCol(t=11,144,"Опис",0,Spec,false,0);
+  MatCol(t,-235,"Ціна",0,Price,true,0);
+  MatCol(t,-135,"%",0,vRebate,true,0);
+  MatCol(t,-100,"Сума",0,Sum,true,0);  
+  Flip(2);
+  MatCol(t=1,144,"Опис",0,Spec,false,0);
+  MatCol(t,-250,"Рахунок",0,SalesAcc,false,AccSClass);
+  MatCol(t,-170,"Період",0,PeriodCode,false,AutSimPerSClass);
+  MatCol(t,-114,"Об'єкти",0,Objects,false,ObjSClass);
+  MatCol(t,-24,"ПДВ",0,VATCode,false,VATCodeSClass);
+  MatCol(t=11,144,"Опис",0,Spec,false,0);
+  MatCol(t,-250,"Рахунок",0,SalesAcc,false,AccSClass);
+  MatCol(t,-170,"Період",0,PeriodCode,false,AutSimPerSClass);
+  MatCol(t,-104,"Об'єкти",0,Objects,false,ObjSClass);
+  MatCol(t,-34,"ПДВ",0,VATCode,false,VATCodeSClass);  
+  Flip(3);
+  MatCol(t=1,144,"Опис",0,Spec,false,0);
+  MatCol(t,-250,"Рахунок",0,SalesAcc,false,AccSClass);
+  MatCol(t,-170,"Період",0,PeriodCode,false,AutSimPerSClass);
+  MatCol(t,-104,"Об'єкти",0,Objects,false,ObjSClass);
+  MatCol(t,-24,"Ряд",0,IVRow,false,0);
+  MatCol(t=11,144,"Опис",0,Spec,false,0);
+  MatCol(t,-250,"Рахунок",0,SalesAcc,false,AccSClass);
+  MatCol(t,-170,"Період",0,PeriodCode,false,AutSimPerSClass);
+  MatCol(t,-124,"Об'єкти",0,Objects,false,ObjSClass);
+  MatCol(t,-24,"РядНакл",0,IVRow,false,0);
+  InsertRowTest;
+  DeleteRowTest;
+  EndMatrix;
+  CheckBox(25,v=-21,0,"OK",OKFlag);
+  vs = 22;
+  v = 18; VTab(-35,v,-16,v+vs,ToolFlip,1,"A");
+  v=v+ vs; VTab(-35,v,-16,v+vs,ToolFlip,2,"B");
+  v=v+ vs; VTab(-35,v,-16,v+vs,ToolFlip,3,"C");
+  Tile(3,70,false,"3",FrRate);
+  vs = 20;
+  EditField(h=110,v=6,50,"Валюта",Normal,CurncyCode,false,CurncyCodeSClass);
+  EditField(h2=295,v,50,"Курс",Normal,FrRate,true,0);
+  EditField(h3=360,v,50,":",Normal,ToRateB1,true,0);
+  StaticText(h3+60,v+12,"Осн. валюта 1",false);
+  EditField(h,v+=vs,50,"Осн. валюта 1",ViewOnly,BaseRate1,true,0);
+  EditField(h3,v,50,":",Normal,ToRateB2,true,0);
+  StaticText(h3+60,v+12,"Осн. валюта 2",false);
+  EditField(h,v+=vs,50,"Осн. валюта 2",ViewOnly,BaseRate2,true,0);
+  Tile(4,150,false,"4",Contract); vs = 20;
+  EditField(h,v=6, 100,"Контракт",Normal,Contract,false,ContractsSClass);
+  EditField(h,v+=vs, 100,"Дата контракту",Normal,ContractDate,false,0);
+  EditField(h,v+=vs, 100,"Вид контракту",Normal,ContractType,false,0);
+  EditField(h,v+=vs, 100,"Форма розрахунків",Normal,ContractPayDeal,false,0);
+  SpecialMenu("Відкрити запис операції",'t',0,"OpenTRFromVATIV");
+  SpecialMenu("Поновити дату зап.оп.",' ',0,"UpdateVATIVDsm");
+  SpecialMenu("Експорт в XML",' ',26,"ExportXMLsm");
+  EndWindow;
+  
+  /*WindowBegin("Податкова накладна",VATIVDClass,CGview,-);
   SetWRect(20,80,620,420);
   Sizeable(-1,-1,0,0);
   UseView(VATIVVc);
@@ -7161,7 +7354,7 @@ begin
   
   SpecialMenu("Відкрити запис операції",'t',0,"OpenTRFromVATIV");
   SpecialMenu("Поновити дату зап.оп.",' ',0,"UpdateVATIVDsm");
-  EndWindow;
+  EndWindow;*/
 end;
 
 
