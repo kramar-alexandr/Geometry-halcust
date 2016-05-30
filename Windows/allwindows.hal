@@ -6833,12 +6833,14 @@ begin
   vs = 20; h1 = 110; h2 = 300; h3 = 480;
   EditField(h1,vm=(v=6),82,"Терм. спл. ак/накл",ViewOnly,VIDueDate,false,PasteCurDate);
   EditField(h2,v,200,"Акт/накл. пост.",Normal,InvoiceNr,false,0);
-  EditField(h2,v+20,200,"ПН постачальника",Normal,VEPN,false,0); 								// SAV Gray-5 2011_01_03
+  EditField(h2,v+=20,200,"ПН постачальника",Normal,VEPN,false,0); 								// SAV Gray-5 2011_01_03
+  EditField(h2,v+=,200,"Об'єкти",Normal,Objects,false,ObjSClass);// Edit ************************** Monday, 30 May 2016 11:47:39
+	EditField(h2,v,82,"Порядков.номер",Normal,MonthSeqNr,false,0);// Edit ************************** Monday, 30 May 2016 11:48:30
+
+
   EditField(h4,v,82,"Термін сплати",ViewOnly,VIDueDate,false,0);
   EditField(h1,v+=vs,82,"Дата акту/накл.",ViewOnly,VITransDate,false,PasteCurDate);
-  if (true) then begin 
-  EditField(h2,v,82,"Порядков.номер",Normal,MonthSeqNr,false,0);
-  end;
+
   if (HasSettlementDiscount) then begin
   EditField(h4,v,82,"Дата зниж.",ViewOnly,VIRebDate,false,0);
   end;
@@ -6856,7 +6858,39 @@ begin
   MatrixBegin(4,v,-50,-26,-,99);
   MatTypedRow(stp); //??
   MatOverStrike(ovst);
-  Flip(0);
+  
+  Flip(0);// Edit ************************** Monday, 30 May 2016 11:45:52
+  MatCol(1,24,"Рахунок",0,AccNumber,false,AccSClass);
+  MatCol(1,80,"Об'єкти",0,Objects,false,ObjSClass);
+  MatText(t=2,32,"Підпис",true);
+  MatCol(t,108,"",0,Sign,false,0);
+  MatText(t,160,"Дата старого зап.оп.",true);
+  MatColTL(t,290,"",0,-1,ViewOnly,-1,OldTransDate,false,0);
+  MatText(t=6,24,"Номер передпл.",true);
+  MatCol(t,170,"",0,PrepayNr,true,OPPSClass);
+  MatCol(t,-250,"",0,Comment,false,0);
+  MatCol(t,-160,"",0,PrepayAmount,true,0);
+  MatCol(t,-70,"",0,VATVal,true,0);
+  Flip(1);
+  MatCol(1,140,"Код рах.",0,ACShort,false,ACShortSClass);
+  MatCol(1,200,"Опис",0,Comment,false,0);
+  MatCol(1,-230,"Ціна",0,Price,true,0);
+  MatCol(1,-160,"%",0,vRebate,true,0);
+  MatCol(1,-120,"Сума",0,Sum,true,0);
+  MatCol(1,-30,"ПДВ",0,VATCode,false,VATCodeSClass);
+  Flip(2);
+  MatCol(1,140,"Опис",0,Comment,false,0);
+  MatCol(1,-260,"Сума",0,Sum,true,0);
+  MatCol(1,-190,"Товар",0,Item,false,INSClass);
+  MatCol(1,-130,"Кіл-ть",0,qty,true,0);
+  MatCol(1,-30,"ПДВ",0,VATCode,false,VATCodeSClass);
+  MatText(3,270,"",true);
+  Flip(3);
+  MatCol(1,140,"Опис",0,Comment,false,0);
+  MatCol(1,-180,"Сума",0,Sum,true,0);
+  MatCol(1,-100,"Майб.пер.",0,PeriodCode,false,AutSimPerSClass);
+  MatCol(1,-20,"Ряд",0,VIRow,false,0);// Edit ************************** Monday, 30 May 2016 11:45:50
+  /*Flip(0);
   MatCol(1,24,"Рахунок",0,AccNumber,false,AccSClass);
   if (HasObjects) then begin
   MatCol(1,80,"Об'єкти",0,Objects,false,ObjSClass);
@@ -6888,7 +6922,7 @@ begin
   if (HasSimAccruals) then begin
   MatCol(1,-100,"Майб.пер.",0,PeriodCode,false,AutSimPerSClass);
   end;
-  MatCol(1,-30,"Ряд.",0,VIRow,false,0); //!!PRODTRANSLATE
+  MatCol(1,-30,"Ряд.",0,VIRow,false,0); //!!PRODTRANSLATE*/
   InsertRowTest;
   DeleteRowTest;
   EndMatrix;
