@@ -687,8 +687,11 @@ begin
   EditField(75,v+=20,95,"Клієнт",Normal,CustCode,false,CUSClass);
   EnterSkip(PayDeal);
   EditField(h=255,v=vm,-40,"Найм.",Normal,Addr0,false,0);
+  EditField(h,vm=(v+=20),50, "Проект",Normal,PRCode,false,PRTSTSSClass);
+  
+  
   if (HasOfficialSerNr) then begin
-    EditField(h,v+=20,150,"Оф. номер",ViewOnly,ProformaOfficialSerNr,ViewOnly,LegalInvNrSClass); 
+    EditField(500,v,150,"Оф. номер",ViewOnly,ProformaOfficialSerNr,ViewOnly,LegalInvNrSClass); 
   end;
   tilenr = 1;
   TileButton(1,"Дата");
@@ -839,7 +842,8 @@ EditField(h2,v,100,"Ориг. клієнт",Normal,OrgCust,false,AllCUSClass);
   EditField(h3,v,-20,"Маршрут",Normal,Sorting,false,DelRouteSClass);
   EditField(h2,v+=vs,60,"Днів на доставку",Normal,DaysToDelivery,false,0);
   EditField(h3,v   ,70,"Склад",Normal,Location,false,LocationSClass);
-  EditField(h2,v+=vs,-20,"Об'єкти",ViewOnly,Objects,false,ObjSClass);
+  //EditField(h2,v+=vs,-20,"Об'єкти",ViewOnly,Objects,false,ObjSClass);
+  v = v + vs;
   EditField(h,v+=3*vs,80,"Разом кіл-ть",ViewOnly,TotQty,true,0);
   EditField(h2,v,80,"Разом: вагу",ViewOnly,TotWeight,true,0);
   EditField(h3,v,80,"об'єм",ViewOnly,TotVolume,true,0);
