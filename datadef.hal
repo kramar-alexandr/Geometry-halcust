@@ -1013,7 +1013,19 @@ EndRecordAdd;
     RecordField(LEDate,M4Date,0,0);
     RecordField(LETime,M4Time,0,0);
     RecordField(Sign,M4Str,255,0);
-	EndBlock; 
+	EndBlock;
+  
+  RecordBegin(KBIstoriyaVc,-,"");
+		RecordField(SerNr,M4Long,0,0);
+		RecordField(OPCode,M4Code,10,0);
+    RecordField(User,M4Code,10,0);
+    RecordField(Num,M4Long,0,0);
+		RecordField(Date,M4Date,0,0);
+		RecordField(Time,M4Time,0,0);
+    RecordField(FileName,M4Str,255,0);
+		MainKeyBegin(SerNr,0);
+		KeySegment(SerNr);
+  EndRecord;
     
  return;
 end;

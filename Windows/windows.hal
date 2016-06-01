@@ -804,4 +804,45 @@ begin
   SearchField("Пошук");
   EndWindow;
 end;  
-	
+
+window KBIstoriyaDClass:1
+  wtag("language","RUS"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  real h,v,vs;
+
+  WindowBegin("KBIstoriya",KBIstoriyaDClass,CGview,-);
+  SetWRect(20,80,400,200);
+  UseView(KBIstoriyaVc);
+  h = 110; v = 10; vs = 20;
+  EditField(h,v,100,"SerNr",St_i,SerNr,false,0);
+  EditField(h,v+=vs,100,"OPCode",Normal,OPCode,false,0);
+  EditField(h,v+=vs,100,"User",Normal,User,false,0);
+  EditField(h,v+=vs,100,"Num",Normal,Num,false,0);
+  EditField(h,v+=vs,100,"Date",Normal,Date,false,0);
+  EditField(h,v+=vs,100,"Time",Normal,Time,false,0);
+  EditField(h,v+=vs,200,"FileName",Normal,FileName,false,0);
+  
+  EndWindow;
+
+end;
+
+window KBIstoriyaLClass:1
+  wtag("language","RUS"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  real h,v,vs;
+
+  WindowBegin("KBIstoriya",KBIstoriyaLClass,CGmlist,-);
+  SpawnClass(KBIstoriyaDClass);
+  SetWRect(20,80,400,200);
+  Sizeable(-1,-1,0,0);
+  UseView(KBIstoriyaVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(50,5,"SerNr",SerNr,false,SerNr);
+  RlCol(100,100,"OPCode",OPCode,false);
+  RlCol(200,200,"User",User,false);
+  RlCol(300,300,"Date",Date,false);
+  
+  SearchField("Пошук");
+  EndWindow;
+
+end;

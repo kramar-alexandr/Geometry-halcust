@@ -552,6 +552,24 @@ record KBSettBlock KBb;
 	return;
 end;
 
+//Edit-------------------Vitalii 12:41 01.06.2016
+updating procedure KBHistUpdate(string OPCode, longint num, string FileName)
+begin
+  record KBIstoriyaVc kbir;
+  
+  RecordNew(kbir);
+  kbir.OPCode = OPCode;
+  kbir.Num = num;
+  kbir.User = CurrentUser;
+  kbir.Date = CurrentDate;
+  kbir.Time = CurrentTime;
+  kbir.FileName = FileName;
+  kbir.SerNr = NextSerNr("KBIstoriyaVc",kbir.Date,-1,false,"");
+  logtext(0,kbir.SerNr);
+  RecordStore(kbir,true);
+  return;
+end;
+
 global updating 
 procedure RemoteKBExport(record RcVc RepSpec)
 begin
@@ -699,6 +717,7 @@ record CUVc CUr;
 		KBb.StartNum = num;
 		KBb.FileName=KBb.FileName+1;
 		BlockStore(KBb);
+    KBHistUpdate(OPr.SerNr,num,FileName);//Edit-------------------Vitalii 12:41 01.06.2016
 		//CloseWindow(RepSpec.ArtMode);
 		//i = OpenWindow("OPDClass",1,0,"","",OPr);
 	end;

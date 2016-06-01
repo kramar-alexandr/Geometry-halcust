@@ -87,7 +87,8 @@ begin
   
   Module("СМС повідомлення","",730,modSMS);//Edit-------------------Vitalii 11:39 25.03.2016
   Setting("Налаштування СМС",SMSConfigTClass,modSMS);//Edit-------------------Vitalii 11:42 25.03.2016
-  Report("TEST",TestRClass,TestRn,0,modSMS);
+  //Report("TEST",TestRClass,TestRn,0,modSMS);
+  Setting("KBIstoriya",KBIstoriyaLClass,modTC);//Edit-------------------Vitalii 13:55 01.06.2016
 	
 	
   SetBegin(461);//SAV 2011_12_20 from 6.3
