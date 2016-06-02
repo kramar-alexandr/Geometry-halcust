@@ -1387,3 +1387,47 @@ begin
    VATIVVcRecordDuplicate = res;  
   RETURN;
 END;
+
+global
+updating function LongInt OPVcRecordSaveAfter(var record OPVc OPr,record OPVc OP2r,LongInt stat,LongInt long4)
+BEGIN
+  LongInt res;
+  record ActVc Actr;
+  
+  res = inner.OPVcRecordSaveAfter(OPr,OP2r,stat,long4);
+  if res==-1 then begin
+    if OPr.DoneFlag==1 then begin
+      RecordNew(Actr);
+      Actr.Comment = USetStr(1751) & OPr.SerNr & " " & USetStr(31017);
+      Actr.MainPersons = OPr.Sign;
+      Actr.FromSerNr = OPr.SerNr;
+      Actr.FromFileName = "OPVc";
+      Actr.AlarmType = kAlarmTypeMessage;
+      RecordStore(Actr,true);
+    end;
+  end;
+  
+  return;
+END;
+
+global
+updating function LongInt OPVcRecordUpdateAfter(var record OPVc OPr,record OPVc OP2r,LongInt stat,LongInt long4)
+BEGIN
+  LongInt res;
+  record ActVc Actr;
+  
+  res = inner.OPVcRecordUpdateAfter(OPr,OP2r,stat,long4);
+  if res==-1 then begin
+    if OPr.DoneFlag==1 and OP2r.DoneFlag==0 then begin
+      RecordNew(Actr);
+      Actr.Comment = USetStr(1751) & OPr.SerNr & " " & USetStr(31017);
+      Actr.MainPersons = OPr.Sign;
+      Actr.FromSerNr = OPr.SerNr;
+      Actr.FromFileName = "OPVc";
+      Actr.AlarmType = kAlarmTypeMessage;
+      RecordStore(Actr,true);
+    end;
+  end;
+  
+  return;
+END;

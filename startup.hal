@@ -24,6 +24,7 @@ begin
 	SString(31014,"Ком.проп.");
 	SString(31015,"Пост.:"); 
 	SString(31016,"№ п.д."); // Edit ************************** Wednesday, 23 March 2016 12:09:56
+  SString(31017,"проведено");
 	
 	Setting("PErsVc",PErsLClass,modTC);
 	Setting("RHist",RHistLClass,modSY);
