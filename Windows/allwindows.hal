@@ -3483,7 +3483,7 @@ begin
 
   BlockLoad(CYb);
   WindowBegin("Платіж клієнта",IPDClass,CGview,-);
-  SetWRect(20,80,700,380);
+  SetWRect(20,80,800,380);
   Sizeable(-1,-1,0,0);
   UseView(IPVc);
   ActiveFieldOnNew("TransDate");
@@ -3544,12 +3544,12 @@ begin
   Flip(0);
   if (HasPreferedOfficialSerNr) then begin
     if (HasLocalization("POL,RUS")) then begin
-      MatCol(t=kReceiptRowTypeNormal,60,"Акт/накл.",0,InvoiceOfficialSerNr,false,ARSClass); 
+      MatCol(t=kReceiptRowTypeNormal,30,"Акт/накл.",0,InvoiceOfficialSerNr,false,ARSClass); 
     end else begin
-  MatCol(t=kReceiptRowTypeNormal,60,"Акт/накл.",0,InvoiceNr,false,ARSClass);
+  MatCol(t=kReceiptRowTypeNormal,30,"Акт/накл.",0,InvoiceNr,false,ARSClass);
     end;
   end else begin
-    MatCol(t=kReceiptRowTypeNormal,60,"Акт/накл.",0,InvoiceNr,false,ARSClass); 
+    MatCol(t=kReceiptRowTypeNormal,30,"Акт/накл.",0,InvoiceNr,false,ARSClass); 
   end;
   EnterSkip(RecVal);
   MatCol(t,125,"Клієнт",0,CustCode,false,CUSClass);
@@ -3589,6 +3589,7 @@ begin
   Flip(flipnr); flipnr = flipnr + 1;
   EnterSkip(PayDate);
   MatCol(t=kReceiptRowTypeNormal,200,"Текст",0,CustName,false,0);
+  MatColTL(t,-420,"Проект",0,M4UStr,ViewOnly,0,PRCode,false,PRSClass);// 62
   if (IsEnterprise) then begin
   MatCol(t,-350,"Дата сплати",0,PayDate,false,0);
   end;
@@ -3713,7 +3714,7 @@ begin
     end;
   MatCol(t,-220,"Коментар",0,Comment,false,0);
   //// 62 !!!!!!!!!!
-  MatColTL(t,-80,"Проект",0,M4UStr,ViewOnly,0,PRCode,false,0);// 62
+  MatColTL(t,-80,"Проект",0,M4UStr,ViewOnly,0,PRCode,false,PRSClass);// 62
   //// 62  
   MatCol(t=kReceiptRowTypeWriteoff,-390,"Вал. накл.",0,InvCurncy,true,0);
   MatCol(t,-350,"Сума накл.",0,InvVal,true,0);
